@@ -1,29 +1,18 @@
 import * as React from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Tractor, Stethoscope, GraduationCap, Leaf } from 'lucide-react';
+import { Leaf } from 'lucide-react';
 import type { Audience } from '@/lib/types';
+import { AUDIENCE_DATA } from '@/lib/data';
+import { Badge } from '../ui/badge';
 
 interface DashboardHeaderProps {
   audience: Audience;
-  onAudienceChange: (audience: Audience) => void;
 }
 
-const audienceOptions: { value: Audience; label: string; icon: React.ElementType }[] = [
-  { value: 'Farmer', label: 'Farmer', icon: Tractor },
-  { value: 'Doctor', label: 'Doctor', icon: Stethoscope },
-  { value: 'Student', label: 'Student', icon: GraduationCap },
-];
-
 export default function DashboardHeader({
-  audience,
-  onAudienceChange,
+  audience
 }: DashboardHeaderProps) {
+    const Icon = AUDIENCE_DATA[audience].datasetSummaryIcon;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -33,26 +22,12 @@ export default function DashboardHeader({
             Forest Insights
           </h1>
         </div>
-        <div className="flex items-center gap-4">
-           <span className="text-sm font-medium text-muted-foreground hidden sm:inline">Choose Audience:</span>
-          <Select
-            value={audience}
-            onValueChange={(value: Audience) => onAudienceChange(value)}
-          >
-            <SelectTrigger className="w-[180px] font-semibold">
-              <SelectValue placeholder="Choose Audience" />
-            </SelectTrigger>
-            <SelectContent>
-              {audienceOptions.map(option => (
-                <SelectItem key={option.value} value={option.value}>
-                  <div className="flex items-center gap-2">
-                    <option.icon className="h-4 w-4" />
-                    <span>{option.label}</span>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="flex items-center gap-2">
+           <span className="text-sm font-medium text-muted-foreground hidden sm:inline">Audience:</span>
+            <Badge variant="outline" className="text-base font-semibold py-1 px-3">
+                <Icon className="h-4 w-4 mr-2" />
+                {audience}
+            </Badge>
         </div>
       </div>
     </header>
