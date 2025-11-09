@@ -53,7 +53,7 @@ export default function ParameterPlaygroundSection({
               <div className="flex justify-between items-center">
                 <Label htmlFor={key} className="flex items-center gap-2 text-base">
                   <Icon className="w-4 h-4 text-primary" />
-                  <span>{label} (<code className="text-sm font-code bg-muted px-1 py-0.5 rounded-sm">{key}</code>)</span>
+                  <span><code className="text-sm font-code bg-muted px-1 py-0.5 rounded-sm">{key}</code> [{label}]</span>
                 </Label>
                 <Badge variant="secondary" className="text-sm">{parameters[key]}</Badge>
               </div>
