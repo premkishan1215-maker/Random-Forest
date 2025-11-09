@@ -73,15 +73,15 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-4 max-h-[70vh] overflow-y-auto p-1">
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-2">
                 <Card className="h-full shadow-md">
                     <CardHeader>
                         <CardTitle>Decision Structure</CardTitle>
                         <CardDescription>A visual map of this tree's logic.</CardDescription>
                     </CardHeader>
                     <CardContent className="p-4 flex items-center justify-center">
-                        <svg viewBox="0 0 200 170" className="w-full h-auto">
-                            <g>
+                        <svg viewBox="0 0 220 190" className="w-full h-auto">
+                            <g transform="translate(10, 10)">
                                 {/* Lines */}
                                 <path d="M 100 25 V 55" stroke="hsl(var(--border))" strokeWidth="2" />
                                 <path d="M 100 75 L 50 105" stroke="hsl(var(--border))" strokeWidth="2" />
@@ -123,7 +123,7 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
                     </CardContent>
                 </Card>
             </div>
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-3">
                 <Card className="shadow-md h-full">
                     <CardHeader>
                         <CardTitle>Bootstrap Sample</CardTitle>
