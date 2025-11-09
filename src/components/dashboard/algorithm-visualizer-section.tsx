@@ -102,9 +102,10 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
       { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
-     const { votingData, featureImportanceData } = React.useMemo(() => {
+     const { votingData, featureImportanceData, forestPredictions } = React.useMemo(() => {
         const [label1, label2] = audienceData.target.labels;
 
+        // Memoize the predictions for all trees in the forest
         const treePredictions = Array.from({ length: parameters.n_estimators }).map(() => (Math.random() > 0.5 ? label1 : label2));
         
         const votes: Record<string, number> = treePredictions.reduce((acc, pred) => {
@@ -126,7 +127,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
 
         return { 
             votingData: { chartData: votingChartData, finalPrediction },
-            featureImportanceData: featImportance
+            featureImportanceData: featImportance,
+            forestPredictions: treePredictions // Return the stable predictions
         };
 
     }, [audienceData, parameters.n_estimators]);
@@ -251,8 +253,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                     </CardHeader>
                                     <div className="p-6">
                                         <div className="grid grid-cols-5 gap-4">
-                                            {Array.from({ length: parameters.n_estimators }).map((_, i) => (
-                                                <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} />
+                                            {forestPredictions.map((prediction, i) => (
+                                                <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} initialPrediction={prediction} />
                                             ))}
                                         </div>
                                         <p className="text-center text-sm mt-4 text-muted-foreground">Multiple trees are built to form a "forest". Click a tree to explore it.</p>
@@ -314,5 +316,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             </CardContent>
         </Card>
     );
+
+    
 
     

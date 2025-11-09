@@ -19,6 +19,7 @@ import { Badge } from '../ui/badge';
 interface InteractiveTreeExplorerProps {
     treeId: number;
     audienceData: AudienceData;
+    initialPrediction: string;
 }
 
 type TreeNode = {
@@ -131,15 +132,11 @@ const TreeDiagram = ({ treeData, audienceData }: { treeData: TreeNode; audienceD
 };
 
 
-export default function InteractiveTreeExplorer({ treeId, audienceData }: InteractiveTreeExplorerProps) {
+export default function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction }: InteractiveTreeExplorerProps) {
   const [mockTreeData, setMockTreeData] = React.useState<any[]>([]);
-  const [prediction, setPrediction] = React.useState('');
   const [diagramData, setDiagramData] = React.useState<TreeNode | null>(null);
   
   const generateDataForTree = React.useCallback(() => {
-    // Generate prediction
-    setPrediction(Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]);
-
     // Generate bootstrap sample
     const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
     const originalData = Array.from({length: 10}).map((_, i) => ({
@@ -162,20 +159,28 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
 
   }, [audienceData]);
 
+  // We only want to generate the tree's internal data when the dialog opens
+  // not on every render.
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      generateDataForTree();
+    }
+  };
+
   React.useEffect(() => {
      generateDataForTree();
   }, [generateDataForTree]);
   
   return (
-    <Dialog onOpenChange={(open) => open && generateDataForTree()}>
+    <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <div className="flex flex-col items-center gap-2">
             <Button variant="ghost" className="h-20 w-full flex flex-col gap-1 items-center justify-center border-2 border-dashed hover:border-primary hover:bg-accent/10 transition-colors duration-200">
             <Trees className="w-8 h-8 text-primary/70" />
             <span className="text-xs text-muted-foreground">Tree {treeId}</span>
             </Button>
-            <Badge variant={prediction === audienceData.target.labels[0] ? "default" : "secondary"} className="text-xs">
-                {prediction || '...'}
+            <Badge variant={initialPrediction === audienceData.target.labels[0] ? "default" : "secondary"} className="text-xs">
+                {initialPrediction || '...'}
             </Badge>
         </div>
       </DialogTrigger>
@@ -235,3 +240,5 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
     </Dialog>
   );
 }
+
+    
