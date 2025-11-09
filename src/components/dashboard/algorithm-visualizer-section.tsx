@@ -12,7 +12,7 @@ import type { Audience, AudienceData } from '@/lib/types';
 import { MOCK_DATA_CHARTS } from '@/lib/data';
 import FeatureImportanceChart from './charts/feature-importance-chart';
 import ConfusionMatrix from './charts/confusion-matrix';
-import { ArrowRight, Box, GitCommit, GitMerge, Spline, Vote, CheckCircle } from 'lucide-react';
+import { ArrowRight, Box, GitCommit, GitMerge, Spline, Vote, CheckCircle, RefreshCw } from 'lucide-react';
 import InteractiveTreeExplorer from './interactive-tree-explorer';
 
 interface AlgorithmVisualizerSectionProps {
@@ -63,6 +63,83 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
     );
 };
 
+const BootstrapSampler = ({ audienceData }: { audienceData: AudienceData }) => {
+    const originalData = React.useMemo(() => Array.from({ length: 5 }, (_, i) => ({
+        id: i,
+        f1: (Math.random() * 100).toFixed(1),
+        f2: (Math.random() * 100).toFixed(1),
+        f3: (Math.random() * 100).toFixed(1),
+        target: audienceData.target.labels[Math.random() > 0.5 ? 0 : 1]
+    })), [audienceData]);
+
+    const [bootstrapSample, setBootstrapSample] = React.useState<typeof originalData>([]);
+    const [animationKey, setAnimationKey] = React.useState(0);
+
+    const generateSample = React.useCallback(() => {
+        const sample = Array.from({ length: 5 }, () => {
+            const randomIndex = Math.floor(Math.random() * originalData.length);
+            return { ...originalData[randomIndex], uniqueId: Math.random() };
+        });
+        setBootstrapSample(sample);
+        setAnimationKey(prev => prev + 1);
+    }, [originalData]);
+
+    React.useEffect(() => {
+        generateSample();
+    }, [generateSample]);
+
+    const DataRow = ({ rowData, isHeader = false, isHighlighted = false }: { rowData: any, isHeader?: boolean, isHighlighted?: boolean }) => (
+        <div className={`grid grid-cols-4 gap-2 p-2 text-xs rounded-md ${isHeader ? 'font-bold bg-muted' : 'border'} ${isHighlighted ? 'animate-jump-sample' : ''}`}>
+            <div>{rowData.f1}</div>
+            <div>{rowData.f2}</div>
+            <div>{rowData.f3}</div>
+            <div>{rowData.target}</div>
+        </div>
+    );
+
+    const HeaderRow = () => (
+         <div className="grid grid-cols-4 gap-2 p-2 text-xs rounded-md font-bold bg-muted">
+            <div>{audienceData.features[0].name}</div>
+            <div>{audienceData.features[1].name}</div>
+            <div>{audienceData.features[2].name}</div>
+            <div>{audienceData.target.name}</div>
+        </div>
+    );
+
+    return (
+        <div className="p-4 md:p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h4 className="font-semibold text-center mb-2">Original Dataset</h4>
+                    <div className="space-y-2 rounded-lg border p-2 bg-secondary/50">
+                        <HeaderRow />
+                        {originalData.map((row) => (
+                            <DataRow key={row.id} rowData={row} />
+                        ))}
+                    </div>
+                </div>
+                <div className="relative">
+                     <h4 className="font-semibold text-center mb-2">Bootstrap Sample (for 1 Tree)</h4>
+                     <div className="space-y-2 rounded-lg border p-2" key={animationKey}>
+                        <HeaderRow />
+                        {bootstrapSample.map((row, index) => (
+                           <DataRow key={row.uniqueId} rowData={row} isHighlighted={true} />
+                        ))}
+                    </div>
+                    <ArrowRight className="absolute top-1/2 left-[-40px] -translate-y-1/2 w-8 h-8 text-primary hidden lg:block" />
+                </div>
+            </div>
+             <div className="text-center mt-4">
+                <p className="text-sm text-muted-foreground mb-2">Rows are picked randomly from the original data to create a new dataset. Notice how some rows are duplicated and others are missing.</p>
+                <Button onClick={generateSample} variant="outline" size="sm">
+                    <RefreshCw className="mr-2 h-4 w-4" />
+                    Generate New Sample
+                </Button>
+            </div>
+        </div>
+    );
+};
+
 
 export default function AlgorithmVisualizerSection({ audience, audienceData, parameters }: AlgorithmVisualizerSectionProps) {
     const dataUnderstandingImage = PlaceHolderImages.find(img => img.id === audienceData.dataUnderstandingImageId);
@@ -106,25 +183,11 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                         </TabsContent>
                         
                         <TabsContent value="stage2">
-                            <CardHeader className="p-0">
-                                <CardTitle>Stage 2: Sampling (Bootstrap)</CardTitle>
+                            <CardHeader className="p-0 mb-4">
+                                <CardTitle>Stage 2: Sampling with Replacement (Bootstrap)</CardTitle>
                                 <CardDescription>{audienceData.metaphors.sampling}</CardDescription>
                             </CardHeader>
-                             <div className="p-6">
-                                <div className="grid grid-cols-1 gap-2 text-xs">
-                                    <div className="grid grid-cols-4 gap-2 font-bold bg-muted p-2 rounded-t-md">
-                                        {audienceData.features.map(f => <div key={f.name}>{f.name}</div>)}
-                                        <div>{audienceData.target.name}</div>
-                                    </div>
-                                    <div className="grid grid-cols-4 gap-2 p-2 border rounded-b-md animate-jump-sample">
-                                        <div>{(Math.random() * 100).toFixed(1)}</div>
-                                        <div>{(Math.random() * 100).toFixed(1)}</div>
-                                        <div>{(Math.random() * 100).toFixed(1)}</div>
-                                        <div>{audienceData.target.labels[Math.random() > 0.5 ? 0 : 1]}</div>
-                                    </div>
-                                </div>
-                                <p className="text-center text-sm mt-4 text-muted-foreground">A random row "jumps" from the main dataset to form a sub-dataset for one tree.</p>
-                            </div>
+                            <BootstrapSampler audienceData={audienceData} />
                         </TabsContent>
 
                         <TabsContent value="stage3">
@@ -196,3 +259,5 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
