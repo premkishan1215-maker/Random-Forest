@@ -19,12 +19,8 @@ import {
 import { Button } from '@/components/ui/button';
 import type { Audience, AudienceData } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import SamplePieChart from './charts/sample-pie-chart';
-import SampleBarChart from './charts/sample-bar-chart';
-import { MOCK_DATA_CHARTS } from '@/lib/data';
 import { useState, useMemo } from 'react';
 import { ArrowRight } from 'lucide-react';
-import GraphExplanation from './graph-explanation';
 
 
 interface DatasetStorySectionProps {
@@ -44,7 +40,7 @@ export default function DatasetStorySection({ audienceData, audience }: DatasetS
   const overviewData = useMemo(() => {
     if (!showData) return [];
     
-    return Array.from({length: 3}).map((_, i) => ({
+    return Array.from({length: 5}).map((_, i) => ({
       id: i + 1,
       feature1: (Math.random() * 100).toFixed(1),
       feature2: (Math.random() * 100).toFixed(1),
@@ -86,8 +82,8 @@ export default function DatasetStorySection({ audienceData, audience }: DatasetS
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <Card className="lg:col-span-1">
+          <div className="grid grid-cols-1 gap-6">
+            <Card>
               <CardHeader>
                 <CardTitle>Dataset Overview</CardTitle>
                 <CardDescription>A small sample of the generated data.</CardDescription>
@@ -111,42 +107,6 @@ export default function DatasetStorySection({ audienceData, audience }: DatasetS
                     ))}
                   </TableBody>
                 </Table>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex-row items-start justify-between">
-                <div>
-                    <CardTitle>Target Distribution</CardTitle>
-                    <CardDescription>How many samples for each outcome.</CardDescription>
-                </div>
-                <GraphExplanation
-                  graphType="Pie Chart"
-                  dataset={audienceData.datasetLabel}
-                  algorithmConcept="Target variable distribution"
-                  audience={audience}
-                />
-              </CardHeader>
-              <CardContent>
-                <SamplePieChart data={MOCK_DATA_CHARTS.targetDistribution} />
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex-row items-start justify-between">
-                <div>
-                    <CardTitle>Feature Distribution</CardTitle>
-                    <CardDescription>Distribution of the primary feature.</CardDescription>
-                </div>
-                 <GraphExplanation
-                  graphType="Bar Chart"
-                  dataset={audienceData.datasetLabel}
-                  algorithmConcept="Feature variable distribution"
-                  audience={audience}
-                />
-              </CardHeader>
-              <CardContent>
-                <SampleBarChart data={MOCK_DATA_CHARTS.featureDistribution} />
               </CardContent>
             </Card>
           </div>
