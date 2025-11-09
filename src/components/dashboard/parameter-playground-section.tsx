@@ -30,6 +30,10 @@ export default function ParameterPlaygroundSection({
         min_samples_leaf: { min: 1, max: 10, step: 1 },
     };
 
+    const relevantParams = {
+        max_depth: audienceData.parameterLabels.max_depth,
+    };
+
   return (
     <Card className="shadow-lg">
       <CardHeader>
@@ -37,7 +41,7 @@ export default function ParameterPlaygroundSection({
         <CardDescription>Adjust the settings to see how a tree changes.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
-        {Object.entries(audienceData.parameterLabels).map(([key, label]) => {
+        {Object.entries(relevantParams).map(([key, label]) => {
            const Icon = PARAMETER_ICONS[key as keyof typeof PARAMETER_ICONS] || (() => null);
            const config = paramConfig[key as keyof typeof paramConfig];
 
