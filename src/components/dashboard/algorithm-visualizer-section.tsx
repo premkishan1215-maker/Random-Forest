@@ -43,7 +43,7 @@ interface AlgorithmVisualizerSectionProps {
 }
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
-    const totalWidth = 1200; // Further increased width for better spacing at all depths
+    const totalWidth = 1400; // Increased width for better spacing
     const yStep = 60;
     const totalHeight = (depth * yStep) + 40;
 
@@ -53,8 +53,7 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
         const children = [];
         const nextCy = cy + yStep;
         
-        // Use a power of 1.8 for a slightly less aggressive spread than power of 2
-        const xOffset = totalWidth / Math.pow(1.8, level + 1);
+        const xOffset = totalWidth / Math.pow(1.9, level + 1);
 
         const leftCx = cx - xOffset;
         const rightCx = cx + xOffset;
@@ -204,7 +203,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <div className="p-6 text-center border rounded-md min-h-[550px] flex items-center justify-center">
+                                    <div className="p-6 text-center border rounded-md min-h-[550px] flex items-center justify-center overflow-x-auto">
                                         <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
                                     </div>
                                     <p className="text-center text-sm mt-4 text-muted-foreground">
