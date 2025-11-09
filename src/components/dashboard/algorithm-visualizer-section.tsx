@@ -123,7 +123,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                             <div className="p-6">
                                 <div className="grid grid-cols-5 gap-4">
                                     {Array.from({ length: parameters.n_estimators }).map((_, i) => (
-                                        <InteractiveTreeExplorer key={i} treeId={i+1} />
+                                        <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} />
                                     ))}
                                 </div>
                                 <p className="text-center text-sm mt-4 text-muted-foreground">Multiple trees are built to form a "forest". Click a tree to explore it.</p>

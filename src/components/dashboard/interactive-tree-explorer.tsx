@@ -12,22 +12,38 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Trees } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import type { AudienceData } from '@/lib/types';
+import * as React from 'react';
 
 interface InteractiveTreeExplorerProps {
     treeId: number;
+    audienceData: AudienceData;
 }
 
-const mockTreeData = [
-    { sampleId: 1, feature1: 12.3, feature2: 45.1, feature3: 2.3, result: 'Pass' },
-    { sampleId: 3, feature1: 8.1, feature2: 50.2, feature3: 1.8, result: 'Pass' },
-    { sampleId: 3, feature1: 8.1, feature2: 50.2, feature3: 1.8, result: 'Pass' }, // duplicate for bootstrap
-    { sampleId: 5, feature1: 25.6, feature2: 33.7, feature3: 4.1, result: 'Fail' },
-    { sampleId: 8, feature1: 15.0, feature2: 60.9, feature3: 2.5, result: 'Pass' },
-]
+export default function InteractiveTreeExplorer({ treeId, audienceData }: InteractiveTreeExplorerProps) {
+  const [mockTreeData, setMockTreeData] = React.useState<any[]>([]);
 
-export default function InteractiveTreeExplorer({ treeId }: InteractiveTreeExplorerProps) {
+  const generateMockData = () => {
+    // Full "original" dataset
+    const originalData = Array.from({length: 10}).map((_, i) => ({
+      id: i + 1,
+      feature1: (Math.random() * 100).toFixed(1),
+      feature2: (Math.random() * 100).toFixed(1),
+      feature3: (Math.random() * 100).toFixed(1),
+      target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
+    }));
+
+    // Create a bootstrap sample by sampling with replacement
+    const bootstrapSample = Array.from({ length: originalData.length }).map(() => {
+        const randomIndex = Math.floor(Math.random() * originalData.length);
+        return originalData[randomIndex];
+    });
+
+    setMockTreeData(bootstrapSample);
+  };
+  
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => open && generateMockData()}>
       <DialogTrigger asChild>
         <Button variant="ghost" className="h-20 w-full flex flex-col gap-1 items-center justify-center border-2 border-dashed hover:border-primary hover:bg-accent/10 transition-colors duration-200">
           <Trees className="w-8 h-8 text-primary/70" />
@@ -38,7 +54,7 @@ export default function InteractiveTreeExplorer({ treeId }: InteractiveTreeExplo
         <DialogHeader>
           <DialogTitle className="font-headline text-2xl">Decision Tree #{treeId}</DialogTitle>
           <DialogDescription>
-            Exploring the decisions made by a single tree in the forest.
+            Exploring the decisions made by a single tree in the forest. This tree was trained on a random subset of the data.
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-4 max-h-[70vh] overflow-y-auto p-1">
@@ -65,12 +81,12 @@ export default function InteractiveTreeExplorer({ treeId }: InteractiveTreeExplo
                                 </g>
                                 <g transform="translate(100, 65)">
                                     <rect x="-40" y="-10" width="80" height="20" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9">F1 {'>'} 0.5</text>
+                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[0].name.split(' ')[0]} {'>'} 0.5</text>
                                 </g>
                                 
                                 <g transform="translate(50, 115)">
                                     <rect x="-40" y="-10" width="80" height="20" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9">F2 {'<='} 10</text>
+                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[1].name.split(' ')[0]} {'<='} 10</text>
                                 </g>
 
                                 <g transform="translate(150, 115)">
@@ -103,18 +119,17 @@ export default function InteractiveTreeExplorer({ treeId }: InteractiveTreeExplo
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Sample ID</TableHead>
-                                    <TableHead>F1</TableHead>
-                                    <TableHead>F2</TableHead>
-                                    <TableHead>Result</TableHead>
+                                    {audienceData.features.slice(0, 2).map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
+                                    <TableHead>{audienceData.target.name}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {mockTreeData.map((row, i) => (
                                 <TableRow key={i}>
-                                    <TableCell>{row.sampleId}</TableCell>
+                                    <TableCell>{row.id}</TableCell>
                                     <TableCell>{row.feature1}</TableCell>
                                     <TableCell>{row.feature2}</TableCell>
-                                    <TableCell>{row.result}</TableCell>
+                                    <TableCell>{row.target}</TableCell>
                                 </TableRow>
                                 ))}
                             </TableBody>
