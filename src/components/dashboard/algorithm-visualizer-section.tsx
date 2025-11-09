@@ -12,7 +12,7 @@ import type { Audience, AudienceData } from '@/lib/types';
 import { MOCK_DATA_CHARTS } from '@/lib/data';
 import FeatureImportanceChart from './charts/feature-importance-chart';
 import ConfusionMatrix from './charts/confusion-matrix';
-import { ArrowRight, Box, GitMerge, Spline, Vote, CheckCircle } from 'lucide-react';
+import { ArrowRight, Box, GitMerge, Spline, Vote, CheckCircle, ListTree, Target } from 'lucide-react';
 import InteractiveTreeExplorer from './interactive-tree-explorer';
 
 interface AlgorithmVisualizerSectionProps {
@@ -95,12 +95,40 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
 
                     <div className="mt-4 p-4 border rounded-md min-h-[400px]">
                         <TabsContent value="stage1">
-                            <CardHeader className="p-0">
-                                <CardTitle>Stage 1: Data Understanding</CardTitle>
+                             <CardHeader className="p-0 mb-4">
+                                <CardTitle>Stage 1: Understanding the Data</CardTitle>
                                 <CardDescription>First, we get to know our data, just like a {audience.toLowerCase()} studies the {audience === 'Farmer' ? 'land' : audience === 'Doctor' ? 'patient chart' : 'textbook'}.</CardDescription>
                             </CardHeader>
-                            <div className="flex items-center justify-center p-6 mt-4">
-                                {dataUnderstandingImage && <Image src={dataUnderstandingImage.imageUrl} alt={dataUnderstandingImage.description} width={300} height={200} className="rounded-lg shadow-md" data-ai-hint={dataUnderstandingImage.imageHint} />}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="font-semibold text-lg">Dataset: {audienceData.datasetLabel}</h3>
+                                    <Card>
+                                        <CardHeader className="pb-2">
+                                            <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target)</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p>To predict if the outcome will be <Badge variant="secondary">{audienceData.target.labels[0]}</Badge> or <Badge variant="secondary">{audienceData.target.labels[1]}</Badge>.</p>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader className="pb-2">
+                                            <CardTitle className="text-md flex items-center gap-2"><ListTree className="w-5 h-5 text-primary"/> Key Factors (Features)</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <ul className="list-disc list-inside space-y-1">
+                                                {audienceData.features.map(feature => (
+                                                    <li key={feature.name}>
+                                                        <strong>{feature.name}</strong>
+                                                        {feature.unit && <span className="text-muted-foreground text-sm"> (in {feature.unit})</span>}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    {dataUnderstandingImage && <Image src={dataUnderstandingImage.imageUrl} alt={dataUnderstandingImage.description} width={300} height={200} className="rounded-lg shadow-md" data-ai-hint={dataUnderstandingImage.imageHint} />}
+                                </div>
                             </div>
                         </TabsContent>
                         
