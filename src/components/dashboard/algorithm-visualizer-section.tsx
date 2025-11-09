@@ -183,19 +183,26 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                         </TabsContent>
                         
                         <TabsContent value="stage2">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <CardHeader className="p-0">
-                                        <CardTitle>Stage 2: Building a Decision Tree</CardTitle>
-                                        <CardDescription>{audienceData.metaphors.tree}</CardDescription>
-                                    </CardHeader>
+                            <CardHeader className="p-0 mb-4">
+                                <CardTitle>Stage 2: Building a Decision Tree</CardTitle>
+                                <CardDescription>{audienceData.metaphors.tree}</CardDescription>
+                            </CardHeader>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="md:order-2">
                                     <div className="p-6 text-center">
-                                        <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth}/>
-                                        <p className="text-center text-sm mt-4 text-muted-foreground">A tree grows by splitting data based on feature rules.</p>
+                                        <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
+                                        <p className="text-center text-sm mt-4 text-muted-foreground">
+                                            A tree grows by splitting data based on feature rules.
+                                        </p>
                                     </div>
                                 </div>
-                                <div>
-                                    <ParameterPlaygroundSection relevantParams={['max_depth']} audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
+                                <div className="md:order-1">
+                                    <ParameterPlaygroundSection
+                                        relevantParams={['max_depth']}
+                                        audienceData={audienceData}
+                                        parameters={parameters}
+                                        setParameters={setParameters}
+                                    />
                                 </div>
                             </div>
                         </TabsContent>
