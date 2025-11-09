@@ -42,7 +42,7 @@ export default function DatasetStorySection({ audienceData, audience }: DatasetS
     
     const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
-    return Array.from({length: 20}).map((_, i) => ({
+    return Array.from({length: 15}).map((_, i) => ({
       id: i + 1,
       feature1: getRandomItem(audienceData.features[0].values || []),
       feature2: getRandomItem(audienceData.features[1].values || []),
