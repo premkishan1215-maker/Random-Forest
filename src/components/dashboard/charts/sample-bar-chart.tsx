@@ -29,7 +29,7 @@ export default function SampleBarChart({ data }: SampleBarChartProps) {
             return null
           }}
         />
-        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+        <Bar dataKey="value" barSize={50} radius={[4, 4, 0, 0]}>
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
