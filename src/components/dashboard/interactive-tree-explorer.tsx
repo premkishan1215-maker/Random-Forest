@@ -14,6 +14,7 @@ import { Trees } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { AudienceData } from '@/lib/types';
 import * as React from 'react';
+import { Badge } from '../ui/badge';
 
 interface InteractiveTreeExplorerProps {
     treeId: number;
@@ -22,6 +23,7 @@ interface InteractiveTreeExplorerProps {
 
 export default function InteractiveTreeExplorer({ treeId, audienceData }: InteractiveTreeExplorerProps) {
   const [mockTreeData, setMockTreeData] = React.useState<any[]>([]);
+  const [prediction, setPrediction] = React.useState('');
 
   const generateMockData = () => {
     // Full "original" dataset
@@ -40,15 +42,21 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
     });
 
     setMockTreeData(bootstrapSample);
+    setPrediction(Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]);
   };
   
   return (
     <Dialog onOpenChange={(open) => open && generateMockData()}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="h-20 w-full flex flex-col gap-1 items-center justify-center border-2 border-dashed hover:border-primary hover:bg-accent/10 transition-colors duration-200">
-          <Trees className="w-8 h-8 text-primary/70" />
-          <span className="text-xs text-muted-foreground">Tree {treeId}</span>
-        </Button>
+        <div className="flex flex-col items-center gap-2">
+            <Button variant="ghost" className="h-20 w-full flex flex-col gap-1 items-center justify-center border-2 border-dashed hover:border-primary hover:bg-accent/10 transition-colors duration-200">
+            <Trees className="w-8 h-8 text-primary/70" />
+            <span className="text-xs text-muted-foreground">Tree {treeId}</span>
+            </Button>
+            <Badge variant={prediction === audienceData.target.labels[0] ? "default" : "secondary"} className="text-xs">
+                {prediction || '...'}
+            </Badge>
+        </div>
       </DialogTrigger>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
