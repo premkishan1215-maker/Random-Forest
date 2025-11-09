@@ -247,22 +247,22 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                         </TabsContent>
                         
                         <TabsContent value="stage3">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div className="lg:col-span-2">
                                     <CardHeader className="p-0">
                                         <CardTitle>Stage 3: Forest Formation</CardTitle>
                                         <CardDescription>{audienceData.metaphors.forest}</CardDescription>
                                     </CardHeader>
                                     <div className="p-6">
-                                        <div className="grid grid-cols-5 gap-4">
+                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                                             {forestPredictions.map((prediction, i) => (
-                                                <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} initialPrediction={prediction} />
+                                                <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} initialPrediction={prediction} maxDepth={parameters.max_depth}/>
                                             ))}
                                         </div>
-                                        <p className="text-center text-sm mt-4 text-muted-foreground">Multiple trees are built to form a "forest". Click a tree to explore it.</p>
+                                        <p className="text-center text-sm mt-8 text-muted-foreground">Multiple trees are built to form a "forest". Click a tree to explore it.</p>
                                     </div>
                                 </div>
-                                <div>
+                                <div className="lg:col-span-1">
                                     <ParameterPlaygroundSection relevantParams={['n_estimators']} audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
                                 </div>
                             </div>

@@ -27,7 +27,7 @@ export default function ParameterPlaygroundSection({
     };
 
     const paramConfig = {
-        n_estimators: { min: 1, max: 20, step: 1 },
+        n_estimators: { min: 1, max: 10, step: 1 },
         max_depth: { min: 1, max: 10, step: 1 },
         min_samples_split: { min: 2, max: 10, step: 1 },
         min_samples_leaf: { min: 1, max: 10, step: 1 },

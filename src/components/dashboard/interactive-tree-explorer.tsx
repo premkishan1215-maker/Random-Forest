@@ -20,6 +20,7 @@ interface InteractiveTreeExplorerProps {
     treeId: number;
     audienceData: AudienceData;
     initialPrediction: string;
+    maxDepth: number;
 }
 
 type TreeNode = {
@@ -33,7 +34,8 @@ type TreeNode = {
 const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDepth = 1): TreeNode => {
     const id = `${currentDepth}-${Math.random()}`;
     
-    if (currentDepth >= maxDepth || Math.random() < 0.4) {
+    // Ensure the tree doesn't stop at depth 1, force at least one split.
+    if (currentDepth >= maxDepth || (currentDepth > 1 && Math.random() < 0.4)) {
         // Leaf node
         return {
             id,
@@ -132,7 +134,7 @@ const TreeDiagram = ({ treeData, audienceData }: { treeData: TreeNode; audienceD
 };
 
 
-export default function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction }: InteractiveTreeExplorerProps) {
+export default function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxDepth }: InteractiveTreeExplorerProps) {
   const [mockTreeData, setMockTreeData] = React.useState<any[]>([]);
   const [diagramData, setDiagramData] = React.useState<TreeNode | null>(null);
   
@@ -154,10 +156,11 @@ export default function InteractiveTreeExplorer({ treeId, audienceData, initialP
 
     setMockTreeData(bootstrapSample);
     
-    // Generate tree diagram structure
-    setDiagramData(generateRandomTree(audienceData));
+    // Generate tree diagram structure, ensuring it's not too small
+    const treeDepth = Math.max(2, maxDepth); // Ensure a minimum depth of 2
+    setDiagramData(generateRandomTree(audienceData, treeDepth));
 
-  }, [audienceData]);
+  }, [audienceData, maxDepth]);
 
   // We only want to generate the tree's internal data when the dialog opens
   // not on every render.
