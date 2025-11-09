@@ -40,11 +40,13 @@ export default function DatasetStorySection({ audienceData, audience }: DatasetS
   const overviewData = useMemo(() => {
     if (!showData) return [];
     
+    const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+
     return Array.from({length: 5}).map((_, i) => ({
       id: i + 1,
-      feature1: (Math.random() * 100).toFixed(1),
-      feature2: (Math.random() * 100).toFixed(1),
-      feature3: (Math.random() * 100).toFixed(1),
+      feature1: getRandomItem(audienceData.features[0].values || []),
+      feature2: getRandomItem(audienceData.features[1].values || []),
+      feature3: getRandomItem(audienceData.features[2].values || []),
       target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
     }));
   }, [showData, audienceData]);

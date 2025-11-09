@@ -32,12 +32,14 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
 
 
   const generateMockDataForDialog = () => {
+    const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+    
     // Full "original" dataset
     const originalData = Array.from({length: 10}).map((_, i) => ({
       id: i + 1,
-      feature1: (Math.random() * 100).toFixed(1),
-      feature2: (Math.random() * 100).toFixed(1),
-      feature3: (Math.random() * 100).toFixed(1),
+      feature1: getRandomItem(audienceData.features[0].values || []),
+      feature2: getRandomItem(audienceData.features[1].values || []),
+      feature3: getRandomItem(audienceData.features[2].values || []),
       target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
     }));
 
@@ -94,12 +96,12 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
                                 </g>
                                 <g transform="translate(100, 65)">
                                     <rect x="-40" y="-10" width="80" height="20" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[0].name.split(' ')[0]} {'>'} 0.5</text>
+                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[0].name.split(' ')[0]} == 'Value'</text>
                                 </g>
                                 
                                 <g transform="translate(50, 115)">
                                     <rect x="-40" y="-10" width="80" height="20" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[1].name.split(' ')[0]} {'<='} 10</text>
+                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[1].name.split(' ')[0]} == 'Value'</text>
                                 </g>
 
                                 <g transform="translate(150, 115)">

@@ -15,7 +15,8 @@ export type AudienceData = {
   };
   features: {
     name: string;
-    unit: string;
+    unit?: string;
+    values?: string[];
   }[];
   parameterLabels: {
     n_estimators: string;

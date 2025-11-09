@@ -10,9 +10,9 @@ export const AUDIENCE_DATA: Record<Audience, AudienceData> = {
     datasetSummaryIcon: Tractor,
     target: { name: 'Yield', labels: ['High', 'Low'] },
     features: [
-      { name: 'Rainfall', unit: 'mm' },
-      { name: 'Soil pH', unit: '' },
-      { name: 'Fertilizer', unit: 'kg/ha' },
+      { name: 'Rainfall', values: ['Low', 'Medium', 'High'] },
+      { name: 'Soil Type', values: ['Sandy', 'Clay', 'Loam'] },
+      { name: 'Fertilizer', values: ['Type A', 'Type B', 'None'] },
     ],
     parameterLabels: {
       n_estimators: 'Number of Expert Farmers',
@@ -37,9 +37,9 @@ export const AUDIENCE_DATA: Record<Audience, AudienceData> = {
     datasetSummaryIcon: Stethoscope,
     target: { name: 'Condition', labels: ['Positive', 'Negative'] },
     features: [
-      { name: 'Heart Rate', unit: 'bpm' },
-      { name: 'Blood Pressure', unit: 'mmHg' },
-      { name: 'Cholesterol', unit: 'mg/dL' },
+      { name: 'Family History', values: ['Yes', 'No'] },
+      { name: 'Smoker', values: ['Yes', 'No'] },
+      { name: 'Activity Level', values: ['Low', 'Moderate', 'High'] },
     ],
     parameterLabels: {
       n_estimators: 'Number of Consulting Doctors',
@@ -64,9 +64,9 @@ export const AUDIENCE_DATA: Record<Audience, AudienceData> = {
     datasetSummaryIcon: GraduationCap,
     target: { name: 'Result', labels: ['Pass', 'Fail'] },
     features: [
-      { name: 'Study Hours', unit: 'hrs/wk' },
-      { name: 'Practice Tests', unit: 'count' },
-      { name: 'Attendance', unit: '%' },
+      { name: 'Study Method', values: ['Solo', 'Group', 'Tutor'] },
+      { name: 'Attended Review', values: ['Yes', 'No'] },
+      { name: 'Completed Homework', values: ['Always', 'Sometimes', 'Never'] },
     ],
     parameterLabels: {
       n_estimators: 'Number of Review Tutors',
