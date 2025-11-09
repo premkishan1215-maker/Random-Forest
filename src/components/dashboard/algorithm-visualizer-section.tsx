@@ -47,7 +47,7 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
     const yStep = 80;
     const totalHeight = (depth * yStep) + 40;
 
-    const expansionFactor = 2.1 + (depth / 10);
+    const expansionFactor = 2.0; 
 
     const renderNode = (level: number, cx: number, cy: number, key: string) => {
         if (level > depth) return null;
