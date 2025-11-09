@@ -1,5 +1,4 @@
 
-
 'use client'
 
 import * as React from 'react';
@@ -85,23 +84,34 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
       { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
-    const votingData = React.useMemo(() => {
-        const votes = MOCK_DATA_CHARTS.treePredictions.reduce((acc, pred) => {
-            const vote = pred.Prediction;
-            if (!acc[vote]) {
-                acc[vote] = 0;
+     const { votingData, featureImportanceData } = React.useMemo(() => {
+        const [label1, label2] = audienceData.target.labels;
+
+        const treePredictions = Array.from({ length: parameters.n_estimators }).map(() => (Math.random() > 0.5 ? label1 : label2));
+        
+        const votes: Record<string, number> = treePredictions.reduce((acc, pred) => {
+            if (!acc[pred]) {
+                acc[pred] = 0;
             }
-            acc[vote] += 1;
+            acc[pred] += 1;
             return acc;
-        }, {} as Record<string, number>);
+        }, {});
 
         const finalPrediction = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b);
         
-        const chartData = Object.entries(votes).map(([name, value]) => ({ name, value }));
+        const votingChartData = Object.entries(votes).map(([name, value]) => ({ name, value }));
 
-        return { chartData, finalPrediction };
+        const featImportance = audienceData.features.map(f => ({
+            feature: f.name,
+            importance: Math.random()
+        }));
 
-    }, [MOCK_DATA_CHARTS.treePredictions]);
+        return { 
+            votingData: { chartData: votingChartData, finalPrediction },
+            featureImportanceData: featImportance
+        };
+
+    }, [audienceData, parameters.n_estimators]);
 
     return (
         <Card className="shadow-lg">
@@ -234,8 +244,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardDescription>{audienceData.metaphors.evaluation}</CardDescription>
                             </CardHeader>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-                                <ConfusionMatrix />
-                                <FeatureImportanceChart data={MOCK_DATA_CHARTS.featureImportance} />
+                                <ConfusionMatrix audience={audience}/>
+                                <FeatureImportanceChart data={featureImportanceData} audience={audience} />
                             </div>
                         </TabsContent>
                     </div>

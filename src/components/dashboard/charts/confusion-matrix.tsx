@@ -4,20 +4,33 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import GraphExplanation from '../graph-explanation';
+import type { Audience } from '@/lib/types';
+import { AUDIENCE_DATA } from '@/lib/data';
 
-export default function ConfusionMatrix() {
-  const matrix = [
-    { actual: 'Positive', predicted: 'Positive', value: 180, isCorrect: true },
-    { actual: 'Positive', predicted: 'Negative', value: 20, isCorrect: false },
-    { actual: 'Negative', predicted: 'Positive', value: 30, isCorrect: false },
-    { actual: 'Negative', predicted: 'Negative', value: 270, isCorrect: true },
-  ];
+interface ConfusionMatrixProps {
+  audience: Audience;
+}
+
+export default function ConfusionMatrix({ audience }: ConfusionMatrixProps) {
+  const audienceData = AUDIENCE_DATA[audience];
+  const [label1, label2] = audienceData.target.labels;
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Confusion Matrix</CardTitle>
-        <CardDescription>How well the model's predictions match reality.</CardDescription>
+        <div className="flex items-center justify-between">
+            <div>
+                <CardTitle>Confusion Matrix</CardTitle>
+                <CardDescription>How well the model's predictions match reality.</CardDescription>
+            </div>
+            <GraphExplanation 
+                graphType="Confusion Matrix"
+                dataset={audienceData.datasetLabel}
+                algorithmConcept="Model Prediction Accuracy"
+                audience={audience}
+            />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="relative">
@@ -29,18 +42,18 @@ export default function ConfusionMatrix() {
                     </TableRow>
                     <TableRow>
                     <TableHead className="w-[100px]"></TableHead>
-                    <TableHead><Badge variant="secondary">Positive</Badge></TableHead>
-                    <TableHead><Badge variant="secondary">Negative</Badge></TableHead>
+                    <TableHead><Badge variant="secondary">{label1}</Badge></TableHead>
+                    <TableHead><Badge variant="secondary">{label2}</Badge></TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     <TableRow>
-                        <TableHead className="text-center"><div className="-rotate-90 "><Badge variant="secondary">Positive</Badge></div></TableHead>
+                        <TableHead className="text-center"><div className="-rotate-90 "><Badge variant="secondary">{label1}</Badge></div></TableHead>
                         <TableCell className="text-center text-lg font-bold bg-green-100/50 dark:bg-green-900/30 text-green-700 dark:text-green-400">180</TableCell>
                         <TableCell className="text-center text-lg font-bold bg-red-100/50 dark:bg-red-900/30 text-red-700 dark:text-red-400">20</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableHead className="text-center"><div className="-rotate-90"><Badge variant="secondary">Negative</Badge></div></TableHead>
+                        <TableHead className="text-center"><div className="-rotate-90"><Badge variant="secondary">{label2}</Badge></div></TableHead>
                         <TableCell className="text-center text-lg font-bold bg-red-100/50 dark:bg-red-900/30 text-red-700 dark:text-red-400">30</TableCell>
                         <TableCell className="text-center text-lg font-bold bg-green-100/50 dark:bg-green-900/30 text-green-700 dark:text-green-400">270</TableCell>
                     </TableRow>
