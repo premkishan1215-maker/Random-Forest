@@ -44,7 +44,7 @@ export default function Home() {
       <main key={key} className="flex-grow p-4 md:p-8">
         <div className="grid grid-cols-1 gap-6">
           <div className="col-span-1">
-            <DatasetStorySection audienceData={audienceData} audience={audience} />
+            <DatasetStorySection audienceData={audienceData} />
           </div>
 
           <div className="col-span-1">

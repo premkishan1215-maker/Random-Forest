@@ -9,13 +9,21 @@ import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Audience, AudienceData } from '@/lib/types';
-import { MOCK_DATA_CHARTS } from '@/lib/data';
 import FeatureImportanceChart from './charts/feature-importance-chart';
 import ConfusionMatrix from './charts/confusion-matrix';
 import { ArrowRight, Box, GitMerge, Spline, Vote, CheckCircle, ListTree, Target } from 'lucide-react';
 import InteractiveTreeExplorer from './interactive-tree-explorer';
 import ParameterPlaygroundSection from './parameter-playground-section';
 import SampleBarChart from './charts/sample-bar-chart';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
 
 interface AlgorithmVisualizerSectionProps {
     audience: Audience;
@@ -76,6 +84,11 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
     const dataUnderstandingImage = PlaceHolderImages.find(img => img.id === audienceData.dataUnderstandingImageId);
     const [activeTab, setActiveTab] = React.useState("stage1");
 
+    const [showData, setShowData] = React.useState(false);
+    const handleGenerateData = () => {
+        setShowData(true);
+    };
+
     const stages = [
       { id: 'stage1', name: 'Data Understanding', icon: Box },
       { id: 'stage2', name: 'Building Trees', icon: Spline },
@@ -84,7 +97,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
       { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
-     const { votingData, featureImportanceData } = React.useMemo(() => {
+     const { votingData, featureImportanceData, overviewData } = React.useMemo(() => {
         const [label1, label2] = audienceData.target.labels;
 
         const treePredictions = Array.from({ length: parameters.n_estimators }).map(() => (Math.random() > 0.5 ? label1 : label2));
@@ -106,12 +119,23 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             importance: Math.random()
         }));
 
+        const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+        const generatedData = Array.from({length: 15}).map((_, i) => ({
+          id: i + 1,
+          feature1: getRandomItem(audienceData.features[0].values || []),
+          feature2: getRandomItem(audienceData.features[1].values || []),
+          feature3: getRandomItem(audienceData.features[2].values || []),
+          target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
+        }));
+
+
         return { 
             votingData: { chartData: votingChartData, finalPrediction },
-            featureImportanceData: featImportance
+            featureImportanceData: featImportance,
+            overviewData: generatedData
         };
 
-    }, [audienceData, parameters.n_estimators]);
+    }, [audienceData, parameters.n_estimators, showData]);
 
     return (
         <Card className="shadow-lg">
@@ -171,6 +195,45 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <div className="flex items-center justify-center">
                                     {dataUnderstandingImage && <Image src={dataUnderstandingImage.imageUrl} alt={dataUnderstandingImage.description} width={300} height={200} className="rounded-lg shadow-md" data-ai-hint={dataUnderstandingImage.imageHint} />}
                                 </div>
+                            </div>
+                            <div className="mt-6">
+                                {!showData ? (
+                                <div className="flex flex-col items-center justify-center text-center py-12">
+                                    <audienceData.datasetSummaryIcon className="w-16 h-16 mb-4 text-primary/80" />
+                                    <h3 className="text-xl font-semibold mb-2">Ready to explore the data?</h3>
+                                    <p className="text-muted-foreground mb-4">Generate a synthetic dataset to begin.</p>
+                                    <Button onClick={handleGenerateData}>
+                                    Generate New Data <ArrowRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </div>
+                                ) : (
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Dataset Overview</CardTitle>
+                                        <CardDescription>A small sample of the generated data.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                            {audienceData.features.map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
+                                            <TableHead>{audienceData.target.name}</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {overviewData.map((row) => (
+                                            <TableRow key={row.id}>
+                                                <TableCell>{row.feature1}</TableCell>
+                                                <TableCell>{row.feature2}</TableCell>
+                                                <TableCell>{row.feature3}</TableCell>
+                                                <TableCell>{row.target}</TableCell>
+                                            </TableRow>
+                                            ))}
+                                        </TableBody>
+                                        </Table>
+                                    </CardContent>
+                                </Card>
+                                )}
                             </div>
                         </TabsContent>
                         
