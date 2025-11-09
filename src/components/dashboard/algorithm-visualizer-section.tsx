@@ -93,6 +93,14 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
 export default function AlgorithmVisualizerSection({ audience, audienceData, parameters, setParameters, onGenerateData, generatedData }: AlgorithmVisualizerSectionProps) {
     const dataUnderstandingImage = PlaceHolderImages.find(img => img.id === audienceData.dataUnderstandingImageId);
     const [activeTab, setActiveTab] = React.useState("stage1");
+    const [forestPredictions, setForestPredictions] = React.useState<string[]>([]);
+    
+    React.useEffect(() => {
+        const [label1, label2] = audienceData.target.labels;
+        const newPredictions = Array.from({ length: parameters.n_estimators }).map(() => (Math.random() > 0.5 ? label1 : label2));
+        setForestPredictions(newPredictions);
+    }, [audience, parameters.n_estimators, audienceData.target.labels]);
+
 
     const stages = [
       { id: 'stage1', name: 'Data Understanding', icon: Box },
@@ -102,13 +110,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
       { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
-     const { votingData, featureImportanceData, forestPredictions } = React.useMemo(() => {
-        const [label1, label2] = audienceData.target.labels;
-
-        // Memoize the predictions for all trees in the forest
-        const treePredictions = Array.from({ length: parameters.n_estimators }).map(() => (Math.random() > 0.5 ? label1 : label2));
-        
-        const votes: Record<string, number> = treePredictions.reduce((acc, pred) => {
+     const { votingData, featureImportanceData } = React.useMemo(() => {
+        const votes: Record<string, number> = forestPredictions.reduce((acc, pred) => {
             if (!acc[pred]) {
                 acc[pred] = 0;
             }
@@ -116,7 +119,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             return acc;
         }, {});
 
-        const finalPrediction = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b);
+        const finalPrediction = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b, '');
         
         const votingChartData = Object.entries(votes).map(([name, value]) => ({ name, value }));
 
@@ -128,10 +131,9 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         return { 
             votingData: { chartData: votingChartData, finalPrediction },
             featureImportanceData: featImportance,
-            forestPredictions: treePredictions // Return the stable predictions
         };
 
-    }, [audienceData, parameters.n_estimators]);
+    }, [audienceData, forestPredictions]);
 
     return (
         <Card className="shadow-lg">
@@ -316,6 +318,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             </CardContent>
         </Card>
     );
+
+    
 
     
 
