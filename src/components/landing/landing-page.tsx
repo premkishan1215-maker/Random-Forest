@@ -44,25 +44,10 @@ interface LandingPageProps {
   isDataGenerated: boolean;
   onGenerateData: () => void;
   audienceData: AudienceData;
+  generatedData: any[];
 }
 
-export default function LandingPage({ onGetStarted, audience, onAudienceChange, isDataGenerated, onGenerateData, audienceData }: LandingPageProps) {
-  
-  const [overviewData, setOverviewData] = React.useState<any[]>([]);
-
-  React.useEffect(() => {
-    if (isDataGenerated) {
-        const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
-        const generatedData = Array.from({length: 15}).map((_, i) => ({
-          id: i + 1,
-          feature1: getRandomItem(audienceData.features[0].values || []),
-          feature2: getRandomItem(audienceData.features[1].values || []),
-          feature3: getRandomItem(audienceData.features[2].values || []),
-          target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
-        }));
-        setOverviewData(generatedData);
-    }
-  }, [isDataGenerated, audienceData]);
+export default function LandingPage({ onGetStarted, audience, onAudienceChange, isDataGenerated, onGenerateData, audienceData, generatedData }: LandingPageProps) {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-4 sm:p-6 md:p-8 text-center overflow-hidden">
@@ -150,7 +135,7 @@ export default function LandingPage({ onGetStarted, audience, onAudienceChange, 
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {overviewData.map((row) => (
+                            {generatedData.slice(0, 5).map((row) => (
                               <TableRow key={row.id}>
                                 <TableCell>{row.feature1}</TableCell>
                                 <TableCell>{row.feature2}</TableCell>

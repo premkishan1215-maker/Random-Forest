@@ -15,6 +15,7 @@ export default function Home() {
   const [isClient, setIsClient] = React.useState(false);
   const [isDataGenerated, setIsDataGenerated] = React.useState(false);
   const [showDashboard, setShowDashboard] = React.useState(false);
+  const [generatedData, setGeneratedData] = React.useState<any[]>([]);
 
 
   React.useEffect(() => {
@@ -26,10 +27,20 @@ export default function Home() {
   const handleAudienceChange = (newAudience: Audience) => {
     setAudience(newAudience);
     setIsDataGenerated(false); // Reset data generation when audience changes
+    setGeneratedData([]);
     setKey(prevKey => prevKey + 1);
   };
   
   const handleGenerateData = () => {
+    const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+    const data = Array.from({ length: 100 }).map((_, i) => ({
+      id: i + 1,
+      feature1: getRandomItem(audienceData.features[0].values || []),
+      feature2: getRandomItem(audienceData.features[1].values || []),
+      feature3: getRandomItem(audienceData.features[2].values || []),
+      target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
+    }));
+    setGeneratedData(data);
     setIsDataGenerated(true);
   };
 
@@ -54,6 +65,7 @@ export default function Home() {
         onGenerateData={handleGenerateData}
         onGetStarted={() => setShowDashboard(true)}
         audienceData={audienceData}
+        generatedData={generatedData}
       />
     );
   }
@@ -75,6 +87,8 @@ export default function Home() {
                   audienceData={audienceData} 
                   parameters={parameters} 
                   setParameters={setParameters}
+                  onGenerateData={handleGenerateData}
+                  generatedData={generatedData}
                />
             </div>
           </div>
