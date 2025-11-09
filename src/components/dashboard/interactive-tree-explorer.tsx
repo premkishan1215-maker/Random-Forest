@@ -80,7 +80,7 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
                         <CardDescription>A visual map of this tree's logic.</CardDescription>
                     </CardHeader>
                     <CardContent className="p-4 flex items-center justify-center">
-                        <svg viewBox="0 0 200 160" className="w-full h-auto">
+                        <svg viewBox="0 0 200 170" className="w-full h-auto">
                             <g>
                                 {/* Lines */}
                                 <path d="M 100 25 V 55" stroke="hsl(var(--border))" strokeWidth="2" />
