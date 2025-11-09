@@ -13,35 +13,36 @@ export default function Home() {
   const [audience, setAudience] = React.useState<Audience>('Farmer');
   const [key, setKey] = React.useState(0);
   const [isClient, setIsClient] = React.useState(false);
-  const [isDataGenerated, setIsDataGenerated] = React.useState(false);
   const [showDashboard, setShowDashboard] = React.useState(false);
   const [generatedData, setGeneratedData] = React.useState<any[]>([]);
 
-
   React.useEffect(() => {
     setIsClient(true);
+    // Generate initial data when component mounts for the first time
+    handleGenerateData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const audienceData = AUDIENCE_DATA[audience];
 
   const handleAudienceChange = (newAudience: Audience) => {
     setAudience(newAudience);
-    setIsDataGenerated(false); // Reset data generation when audience changes
-    setGeneratedData([]);
+    setGeneratedData([]); // Reset data when audience changes
     setKey(prevKey => prevKey + 1);
+    // Regenerate data for the new audience
+    handleGenerateData(AUDIENCE_DATA[newAudience]);
   };
   
-  const handleGenerateData = () => {
+  const handleGenerateData = (currentAudienceData = audienceData) => {
     const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
     const data = Array.from({ length: 100 }).map((_, i) => ({
       id: i + 1,
-      feature1: getRandomItem(audienceData.features[0].values || []),
-      feature2: getRandomItem(audienceData.features[1].values || []),
-      feature3: getRandomItem(audienceData.features[2].values || []),
-      target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
+      feature1: getRandomItem(currentAudienceData.features[0].values || []),
+      feature2: getRandomItem(currentAudienceData.features[1].values || []),
+      feature3: getRandomItem(currentAudienceData.features[2].values || []),
+      target: Math.random() > 0.5 ? currentAudienceData.target.labels[0] : currentAudienceData.target.labels[1]
     }));
     setGeneratedData(data);
-    setIsDataGenerated(true);
   };
 
 
@@ -61,11 +62,7 @@ export default function Home() {
       <LandingPage
         audience={audience}
         onAudienceChange={handleAudienceChange}
-        isDataGenerated={isDataGenerated}
-        onGenerateData={handleGenerateData}
         onGetStarted={() => setShowDashboard(true)}
-        audienceData={audienceData}
-        generatedData={generatedData}
       />
     );
   }

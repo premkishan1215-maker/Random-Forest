@@ -2,9 +2,9 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trees, ArrowRight, TreeDeciduous, Users, Vote, Database, Tractor, Stethoscope, GraduationCap } from 'lucide-react';
+import { Trees, ArrowRight, Tractor, Stethoscope, GraduationCap } from 'lucide-react';
 import * as React from 'react';
-import type { Audience, AudienceData } from '@/lib/types';
+import type { Audience } from '@/lib/types';
 import {
   Select,
   SelectContent,
@@ -12,14 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 
 const audienceOptions: { value: Audience; label: string; icon: React.ElementType }[] = [
   { value: 'Farmer', label: 'Farmer', icon: Tractor },
@@ -27,27 +19,13 @@ const audienceOptions: { value: Audience; label: string; icon: React.ElementType
   { value: 'Student', label: 'Student', icon: GraduationCap },
 ];
 
-const AnimatedIcon = ({ icon: Icon, delay, text }: { icon: React.ElementType, delay: number, text: string }) => (
-  <div
-    className="flex flex-col items-center gap-2 opacity-0"
-    style={{ animation: `fadeInUp 0.6s ease-out ${delay}s forwards` }}
-  >
-    <Icon className="w-12 h-12 text-primary" />
-    <span className="text-sm font-semibold text-center">{text}</span>
-  </div>
-);
-
 interface LandingPageProps {
   onGetStarted: () => void;
   audience: Audience;
   onAudienceChange: (audience: Audience) => void;
-  isDataGenerated: boolean;
-  onGenerateData: () => void;
-  audienceData: AudienceData;
-  generatedData: any[];
 }
 
-export default function LandingPage({ onGetStarted, audience, onAudienceChange, isDataGenerated, onGenerateData, audienceData, generatedData }: LandingPageProps) {
+export default function LandingPage({ onGetStarted, audience, onAudienceChange }: LandingPageProps) {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-4 sm:p-6 md:p-8 text-center overflow-hidden">
@@ -61,16 +39,6 @@ export default function LandingPage({ onGetStarted, audience, onAudienceChange, 
             opacity: 1;
             transform: translateY(0);
           }
-        }
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
       `}</style>
 
@@ -90,68 +58,32 @@ export default function LandingPage({ onGetStarted, audience, onAudienceChange, 
             <div className="opacity-0" style={{ animation: 'fadeInUp 0.5s ease-out 0.7s forwards' }}>
               <Card className="shadow-lg max-w-lg mx-auto">
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                  <div className="flex items-center gap-4 mb-6 w-full">
-                    <span className="text-md font-medium text-muted-foreground">Choose Your Audience:</span>
-                    <Select
-                      value={audience}
-                      onValueChange={(value: Audience) => onAudienceChange(value)}
-                    >
-                      <SelectTrigger className="w-full font-semibold">
-                        <SelectValue placeholder="Choose Audience" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {audienceOptions.map(option => (
-                          <SelectItem key={option.value} value={option.value}>
-                            <div className="flex items-center gap-2">
-                              <option.icon className="h-4 w-4" />
-                              <span>{option.label}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {!isDataGenerated ? (
-                    <>
-                      <Database className="w-12 h-12 mb-4 text-primary/80" />
-                      <h2 className="text-xl font-headline font-bold mb-2">Generate Your Dataset</h2>
-                      <p className="text-muted-foreground mb-6 max-w-md text-sm">
-                        To begin, generate a synthetic dataset tailored for the <strong className="text-primary">{audience}</strong> audience.
-                      </p>
-                      <Button size="lg" onClick={onGenerateData}>
-                        Generate Dataset <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </>
-                  ) : (
-                    <div className="w-full">
-                      <h3 className="font-bold mb-4">Generated Sample Data for {audience}</h3>
-                      <div className="max-h-60 overflow-y-auto border rounded-md">
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              {audienceData.features.map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
-                              <TableHead>{audienceData.target.name}</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {generatedData.slice(0, 5).map((row) => (
-                              <TableRow key={row.id}>
-                                <TableCell>{row.feature1}</TableCell>
-                                <TableCell>{row.feature2}</TableCell>
-                                <TableCell>{row.feature3}</TableCell>
-                                <TableCell>{row.target}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
-                       <Button size="lg" onClick={onGetStarted} className="mt-6">
-                          Explore the Algorithm <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
+                  <div className="w-full space-y-4">
+                    <div className="flex items-center gap-4 w-full">
+                      <span className="text-md font-medium text-muted-foreground whitespace-nowrap">Choose Your Audience:</span>
+                      <Select
+                        value={audience}
+                        onValueChange={(value: Audience) => onAudienceChange(value)}
+                      >
+                        <SelectTrigger className="w-full font-semibold">
+                          <SelectValue placeholder="Choose Audience" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {audienceOptions.map(option => (
+                            <SelectItem key={option.value} value={option.value}>
+                              <div className="flex items-center gap-2">
+                                <option.icon className="h-4 w-4" />
+                                <span>{option.label}</span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
-                  )}
-
+                    <Button size="lg" onClick={onGetStarted} className="w-full">
+                      Explore the Algorithm <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>
