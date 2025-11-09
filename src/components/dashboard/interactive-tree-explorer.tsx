@@ -24,8 +24,14 @@ interface InteractiveTreeExplorerProps {
 export default function InteractiveTreeExplorer({ treeId, audienceData }: InteractiveTreeExplorerProps) {
   const [mockTreeData, setMockTreeData] = React.useState<any[]>([]);
   const [prediction, setPrediction] = React.useState('');
+  
+  React.useEffect(() => {
+    // Generate the prediction when the component mounts
+    setPrediction(Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]);
+  }, [audienceData.target.labels]);
 
-  const generateMockData = () => {
+
+  const generateMockDataForDialog = () => {
     // Full "original" dataset
     const originalData = Array.from({length: 10}).map((_, i) => ({
       id: i + 1,
@@ -42,11 +48,10 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
     });
 
     setMockTreeData(bootstrapSample);
-    setPrediction(Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]);
   };
   
   return (
-    <Dialog onOpenChange={(open) => open && generateMockData()}>
+    <Dialog onOpenChange={(open) => open && generateMockDataForDialog()}>
       <DialogTrigger asChild>
         <div className="flex flex-col items-center gap-2">
             <Button variant="ghost" className="h-20 w-full flex flex-col gap-1 items-center justify-center border-2 border-dashed hover:border-primary hover:bg-accent/10 transition-colors duration-200">
