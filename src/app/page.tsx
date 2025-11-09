@@ -10,12 +10,15 @@ import AlgorithmVisualizerSection from '@/components/dashboard/algorithm-visuali
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Database } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import LandingPage from '@/components/landing/landing-page';
 
 export default function Home() {
   const [audience, setAudience] = React.useState<Audience>('Farmer');
   const [key, setKey] = React.useState(0);
   const [isClient, setIsClient] = React.useState(false);
   const [isDataGenerated, setIsDataGenerated] = React.useState(false);
+  const [showDashboard, setShowDashboard] = React.useState(false);
+
 
   React.useEffect(() => {
     setIsClient(true);
@@ -43,6 +46,10 @@ export default function Home() {
 
   if (!isClient) {
     return null; // or a loading skeleton
+  }
+
+  if (!showDashboard) {
+    return <LandingPage onGetStarted={() => setShowDashboard(true)} />;
   }
 
   return (
