@@ -107,7 +107,12 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                             <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target)</CardTitle>
                                         </CardHeader>
                                         <CardContent>
-                                            <p>To predict if the outcome will be <Badge variant="secondary">{audienceData.target.labels[0]}</Badge> or <Badge variant="secondary">{audienceData.target.labels[1]}</Badge>.</p>
+                                            <div className="flex items-center gap-2">
+                                                <span>To predict if the outcome will be</span>
+                                                <Badge variant="secondary">{audienceData.target.labels[0]}</Badge>
+                                                <span>or</span>
+                                                <Badge variant="secondary">{audienceData.target.labels[1]}</Badge>.
+                                            </div>
                                         </CardContent>
                                     </Card>
                                     <Card>
