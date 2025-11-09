@@ -14,6 +14,7 @@ import FeatureImportanceChart from './charts/feature-importance-chart';
 import ConfusionMatrix from './charts/confusion-matrix';
 import { ArrowRight, Box, GitMerge, Spline, Vote, CheckCircle, ListTree, Target } from 'lucide-react';
 import InteractiveTreeExplorer from './interactive-tree-explorer';
+import ParameterPlaygroundSection from './parameter-playground-section';
 
 interface AlgorithmVisualizerSectionProps {
     audience: Audience;
@@ -24,6 +25,12 @@ interface AlgorithmVisualizerSectionProps {
         min_samples_split: number;
         min_samples_leaf: number;
     };
+    setParameters: React.Dispatch<React.SetStateAction<{
+        n_estimators: number;
+        max_depth: number;
+        min_samples_split: number;
+        min_samples_leaf: number;
+    }>>;
 }
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
@@ -64,7 +71,7 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
 };
 
 
-export default function AlgorithmVisualizerSection({ audience, audienceData, parameters }: AlgorithmVisualizerSectionProps) {
+export default function AlgorithmVisualizerSection({ audience, audienceData, parameters, setParameters }: AlgorithmVisualizerSectionProps) {
     const dataUnderstandingImage = PlaceHolderImages.find(img => img.id === audienceData.dataUnderstandingImageId);
     const [activeTab, setActiveTab] = React.useState("stage1");
 
@@ -138,13 +145,20 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                         </TabsContent>
                         
                         <TabsContent value="stage3">
-                             <CardHeader className="p-0">
-                                <CardTitle>Stage 2: Building a Decision Tree</CardTitle>
-                                <CardDescription>{audienceData.metaphors.tree}</CardDescription>
-                            </CardHeader>
-                             <div className="p-6 text-center">
-                                 <AnimatedTree depth={parameters.max_depth}/>
-                                 <p className="text-center text-sm mt-4 text-muted-foreground">A tree grows by splitting data based on feature rules.</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <CardHeader className="p-0">
+                                        <CardTitle>Stage 2: Building a Decision Tree</CardTitle>
+                                        <CardDescription>{audienceData.metaphors.tree}</CardDescription>
+                                    </CardHeader>
+                                    <div className="p-6 text-center">
+                                        <AnimatedTree depth={parameters.max_depth}/>
+                                        <p className="text-center text-sm mt-4 text-muted-foreground">A tree grows by splitting data based on feature rules.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <ParameterPlaygroundSection audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
+                                </div>
                             </div>
                         </TabsContent>
                         

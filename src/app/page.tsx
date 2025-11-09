@@ -7,9 +7,7 @@ import { AUDIENCE_DATA } from '@/lib/data';
 import DashboardHeader from '@/components/dashboard/dashboard-header';
 import DatasetStorySection from '@/components/dashboard/dataset-story-section';
 import AlgorithmVisualizerSection from '@/components/dashboard/algorithm-visualizer-section';
-import ParameterPlaygroundSection from '@/components/dashboard/parameter-playground-section';
 import LearningSummarySection from '@/components/dashboard/learning-summary-section';
-import { Card, CardContent } from '@/components/ui/card';
 
 export default function Home() {
   const [audience, setAudience] = React.useState<Audience>('Farmer');
@@ -51,12 +49,16 @@ export default function Home() {
           </div>
 
           <div className="xl:col-span-8">
-             <AlgorithmVisualizerSection audience={audience} audienceData={audienceData} parameters={parameters} />
+             <AlgorithmVisualizerSection 
+                audience={audience} 
+                audienceData={audienceData} 
+                parameters={parameters} 
+                setParameters={setParameters}
+             />
           </div>
           
           <div className="xl:col-span-4">
             <div className="flex flex-col gap-6">
-               <ParameterPlaygroundSection audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
                <LearningSummarySection />
             </div>
           </div>
