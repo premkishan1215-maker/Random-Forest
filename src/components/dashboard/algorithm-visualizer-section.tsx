@@ -43,27 +43,27 @@ interface AlgorithmVisualizerSectionProps {
 }
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
-    const totalWidth = 600; // Increased width for better spacing
-    const yStep = 50;
+    const totalWidth = 1200; // Further increased width for better spacing at all depths
+    const yStep = 60;
     const totalHeight = (depth * yStep) + 40;
 
-    const renderNode = (level: number, cx: number, cy: number, key: string, parentCx: number | null, parentCy: number | null) => {
+    const renderNode = (level: number, cx: number, cy: number, key: string) => {
         if (level > depth) return null;
 
         const children = [];
         const nextCy = cy + yStep;
         
-        // Dynamic horizontal spread based on depth
-        const xOffset = (totalWidth / Math.pow(2, level + 1)) * 1.5;
+        // Use a power of 1.8 for a slightly less aggressive spread than power of 2
+        const xOffset = totalWidth / Math.pow(1.8, level + 1);
 
         const leftCx = cx - xOffset;
         const rightCx = cx + xOffset;
 
         if (level < depth) {
             children.push(<line key={`${key}-l-line`} x1={cx} y1={cy} x2={leftCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
-            children.push(renderNode(level + 1, leftCx, nextCy, `${key}-l`, cx, cy));
+            children.push(renderNode(level + 1, leftCx, nextCy, `${key}-l`));
             children.push(<line key={`${key}-r-line`} x1={cx} y1={cy} x2={rightCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
-            children.push(renderNode(level + 1, rightCx, nextCy, `${key}-r`, cx, cy));
+            children.push(renderNode(level + 1, rightCx, nextCy, `${key}-r`));
         }
 
         const isLeaf = level === depth;
@@ -80,8 +80,8 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
     };
 
     return (
-        <svg viewBox={`-50 0 ${totalWidth + 100} ${totalHeight}`} className="w-full h-auto">
-            {renderNode(1, totalWidth / 2, 20, 'root', null, null)}
+        <svg viewBox={`0 0 ${totalWidth} ${totalHeight}`} className="w-full h-auto min-h-[400px]">
+            {renderNode(1, totalWidth / 2, 20, 'root')}
         </svg>
     );
 };
@@ -194,22 +194,22 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardTitle>Stage 2: Building a Decision Tree</CardTitle>
                                 <CardDescription>{audienceData.metaphors.tree}</CardDescription>
                             </CardHeader>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="md:order-2">
-                                    <div className="p-6 text-center">
-                                        <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
-                                        <p className="text-center text-sm mt-4 text-muted-foreground">
-                                            A tree grows by splitting data based on feature rules.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="md:order-1">
+                            <div className="flex flex-col gap-8">
+                                <div>
                                     <ParameterPlaygroundSection
                                         relevantParams={['max_depth']}
                                         audienceData={audienceData}
                                         parameters={parameters}
                                         setParameters={setParameters}
                                     />
+                                </div>
+                                <div className="w-full">
+                                    <div className="p-6 text-center border rounded-md">
+                                        <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
+                                        <p className="text-center text-sm mt-4 text-muted-foreground">
+                                            A tree grows by splitting data based on feature rules. This is one of many trees in the forest.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </TabsContent>
@@ -287,6 +287,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
 
     
 
