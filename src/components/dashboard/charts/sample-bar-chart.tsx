@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface SampleBarChartProps {
     data: any[];
@@ -13,13 +13,14 @@ export default function SampleBarChart({ data }: SampleBarChartProps) {
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" vertical={false}/>
         <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
         <Tooltip
           cursor={{ fill: 'hsl(var(--muted))' }}
           content={({ active, payload }) => {
             if (active && payload && payload.length) {
               return (
                 <div className="rounded-lg border bg-background p-2 shadow-sm">
-                    <p className="font-bold">{`${payload[0].payload.name}: ${payload[0].value}`}</p>
+                    <p className="font-bold">{`${payload[0].payload.name}: ${payload[0].value} votes`}</p>
                 </div>
               )
             }

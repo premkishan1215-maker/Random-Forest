@@ -16,6 +16,7 @@ import ConfusionMatrix from './charts/confusion-matrix';
 import { ArrowRight, Box, GitMerge, Spline, Vote, CheckCircle, ListTree, Target } from 'lucide-react';
 import InteractiveTreeExplorer from './interactive-tree-explorer';
 import ParameterPlaygroundSection from './parameter-playground-section';
+import SampleBarChart from './charts/sample-bar-chart';
 
 interface AlgorithmVisualizerSectionProps {
     audience: Audience;
@@ -84,6 +85,24 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
       { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
+    const votingData = React.useMemo(() => {
+        const votes = MOCK_DATA_CHARTS.treePredictions.reduce((acc, pred) => {
+            const vote = pred.Prediction;
+            if (!acc[vote]) {
+                acc[vote] = 0;
+            }
+            acc[vote] += 1;
+            return acc;
+        }, {} as Record<string, number>);
+
+        const finalPrediction = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b);
+        
+        const chartData = Object.entries(votes).map(([name, value]) => ({ name, value }));
+
+        return { chartData, finalPrediction };
+
+    }, [MOCK_DATA_CHARTS.treePredictions]);
+
     return (
         <Card className="shadow-lg">
             <CardHeader>
@@ -191,11 +210,19 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardDescription>{audienceData.metaphors.voting}</CardDescription>
                             </CardHeader>
                             <div className="p-6">
-                                <FeatureImportanceChart data={MOCK_DATA_CHARTS.treePredictions} xAxisKey="Prediction" barKey="votes" title="Each Tree's Vote" />
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Vote Count</CardTitle>
+                                        <CardDescription>Each bar shows the number of trees that voted for a specific outcome.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <SampleBarChart data={votingData.chartData} />
+                                    </CardContent>
+                                </Card>
                                 <div className="text-center mt-6">
                                     <p className="text-muted-foreground">The forest predicts...</p>
                                     <Badge className="text-xl font-bold py-2 px-4 mt-2 bg-primary text-primary-foreground">
-                                        {audienceData.target.labels[0]}
+                                        {votingData.finalPrediction}
                                     </Badge>
                                 </div>
                             </div>
