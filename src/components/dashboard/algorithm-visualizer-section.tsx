@@ -43,7 +43,7 @@ interface AlgorithmVisualizerSectionProps {
 }
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
-    const totalWidth = 300;
+    const totalWidth = 600; // Increased width for better spacing
     const yStep = 50;
     const totalHeight = (depth * yStep) + 40;
 
@@ -53,13 +53,11 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
         const children = [];
         const nextCy = cy + yStep;
         
-        // Use powers of 2 to determine spread at each level
-        const spreadFactor = Math.pow(2, depth - level -1);
-        const xOffset = totalWidth / Math.pow(2, level + 1);
+        // Dynamic horizontal spread based on depth
+        const xOffset = (totalWidth / Math.pow(2, level + 1)) * 1.5;
 
-
-        const leftCx = cx - xOffset * (level > 1 ? 1.5 : 2.5);
-        const rightCx = cx + xOffset * (level > 1 ? 1.5 : 2.5);
+        const leftCx = cx - xOffset;
+        const rightCx = cx + xOffset;
 
         if (level < depth) {
             children.push(<line key={`${key}-l-line`} x1={cx} y1={cy} x2={leftCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
@@ -289,5 +287,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
 
     
