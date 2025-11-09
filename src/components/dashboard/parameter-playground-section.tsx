@@ -12,12 +12,14 @@ interface ParameterPlaygroundSectionProps {
   audienceData: AudienceData;
   parameters: { [key: string]: number };
   setParameters: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>;
+  relevantParams: string[];
 }
 
 export default function ParameterPlaygroundSection({
   audienceData,
   parameters,
   setParameters,
+  relevantParams,
 }: ParameterPlaygroundSectionProps) {
 
     const handleSliderChange = (name: string, value: number[]) => {
@@ -31,18 +33,18 @@ export default function ParameterPlaygroundSection({
         min_samples_leaf: { min: 1, max: 10, step: 1 },
     };
 
-    const relevantParams = {
-        max_depth: audienceData.parameterLabels.max_depth,
-    };
+    const paramsToShow = Object.fromEntries(
+      Object.entries(audienceData.parameterLabels).filter(([key]) => relevantParams.includes(key))
+    );
 
   return (
     <Card className="shadow-lg">
       <CardHeader>
         <CardTitle className="font-headline text-2xl">Parameter Playground</CardTitle>
-        <CardDescription>Adjust the settings to see how a tree changes.</CardDescription>
+        <CardDescription>Adjust the settings to see how the algorithm changes.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
-        {Object.entries(relevantParams).map(([key, label]) => {
+        {Object.entries(paramsToShow).map(([key, label]) => {
            const Icon = PARAMETER_ICONS[key as keyof typeof PARAMETER_ICONS] || (() => null);
            const config = paramConfig[key as keyof typeof paramConfig];
 

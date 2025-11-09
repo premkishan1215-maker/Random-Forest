@@ -158,23 +158,30 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                     </div>
                                 </div>
                                 <div>
-                                    <ParameterPlaygroundSection audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
+                                    <ParameterPlaygroundSection relevantParams={['max_depth']} audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
                                 </div>
                             </div>
                         </TabsContent>
                         
                         <TabsContent value="stage3">
-                            <CardHeader className="p-0">
-                                <CardTitle>Stage 3: Forest Formation</CardTitle>
-                                <CardDescription>{audienceData.metaphors.forest}</CardDescription>
-                            </CardHeader>
-                            <div className="p-6">
-                                <div className="grid grid-cols-5 gap-4">
-                                    {Array.from({ length: parameters.n_estimators }).map((_, i) => (
-                                        <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} />
-                                    ))}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <CardHeader className="p-0">
+                                        <CardTitle>Stage 3: Forest Formation</CardTitle>
+                                        <CardDescription>{audienceData.metaphors.forest}</CardDescription>
+                                    </CardHeader>
+                                    <div className="p-6">
+                                        <div className="grid grid-cols-5 gap-4">
+                                            {Array.from({ length: parameters.n_estimators }).map((_, i) => (
+                                                <InteractiveTreeExplorer key={i} treeId={i+1} audienceData={audienceData} />
+                                            ))}
+                                        </div>
+                                        <p className="text-center text-sm mt-4 text-muted-foreground">Multiple trees are built to form a "forest". Click a tree to explore it.</p>
+                                    </div>
                                 </div>
-                                <p className="text-center text-sm mt-4 text-muted-foreground">Multiple trees are built to form a "forest". Click a tree to explore it.</p>
+                                <div>
+                                    <ParameterPlaygroundSection relevantParams={['n_estimators']} audienceData={audienceData} parameters={parameters} setParameters={setParameters} />
+                                </div>
                             </div>
                         </TabsContent>
                         
