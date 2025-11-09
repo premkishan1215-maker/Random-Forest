@@ -221,5 +221,3 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
-
-    

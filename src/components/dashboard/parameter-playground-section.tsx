@@ -34,7 +34,7 @@ export default function ParameterPlaygroundSection({
     <Card className="shadow-lg">
       <CardHeader>
         <CardTitle className="font-headline text-2xl">Parameter Playground</CardTitle>
-        <CardDescription>Adjust the model's settings and see how they affect the outcome.</CardDescription>
+        <CardDescription>Adjust the settings to see how a tree changes.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
         {Object.entries(audienceData.parameterLabels).map(([key, label]) => {
