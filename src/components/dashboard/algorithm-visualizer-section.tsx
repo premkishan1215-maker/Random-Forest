@@ -77,10 +77,10 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
 
     const stages = [
       { id: 'stage1', name: 'Data Understanding', icon: Box },
-      { id: 'stage3', name: 'Building Trees', icon: Spline },
-      { id: 'stage4', name: 'Forest Formation', icon: GitMerge },
-      { id: 'stage5', name: 'Voting', icon: Vote },
-      { id: 'stage6', name: 'Evaluation', icon: CheckCircle },
+      { id: 'stage2', name: 'Building Trees', icon: Spline },
+      { id: 'stage3', name: 'Forest Formation', icon: GitMerge },
+      { id: 'stage4', name: 'Voting', icon: Vote },
+      { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
     return (
@@ -114,7 +114,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                             <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target)</CardTitle>
                                         </CardHeader>
                                         <CardContent>
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 flex-wrap">
                                                 <span>To predict if the outcome will be</span>
                                                 <Badge variant="secondary">{audienceData.target.labels[0]}</Badge>
                                                 <span>or</span>
@@ -144,7 +144,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                             </div>
                         </TabsContent>
                         
-                        <TabsContent value="stage3">
+                        <TabsContent value="stage2">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <CardHeader className="p-0">
@@ -152,7 +152,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                         <CardDescription>{audienceData.metaphors.tree}</CardDescription>
                                     </CardHeader>
                                     <div className="p-6 text-center">
-                                        <AnimatedTree depth={parameters.max_depth}/>
+                                        <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth}/>
                                         <p className="text-center text-sm mt-4 text-muted-foreground">A tree grows by splitting data based on feature rules.</p>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                             </div>
                         </TabsContent>
                         
-                        <TabsContent value="stage4">
+                        <TabsContent value="stage3">
                             <CardHeader className="p-0">
                                 <CardTitle>Stage 3: Forest Formation</CardTitle>
                                 <CardDescription>{audienceData.metaphors.forest}</CardDescription>
@@ -177,7 +177,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                             </div>
                         </TabsContent>
                         
-                        <TabsContent value="stage5">
+                        <TabsContent value="stage4">
                             <CardHeader className="p-0">
                                 <CardTitle>Stage 4: Voting & Final Decision</CardTitle>
                                 <CardDescription>{audienceData.metaphors.voting}</CardDescription>
@@ -193,7 +193,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                             </div>
                         </TabsContent>
                         
-                        <TabsContent value="stage6">
+                        <TabsContent value="stage5">
                             <CardHeader className="p-0">
                                 <CardTitle>Stage 5: Model Evaluation</CardTitle>
                                 <CardDescription>{audienceData.metaphors.evaluation}</CardDescription>
@@ -211,7 +211,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                             if (currentIndex < stages.length - 1) {
                                 setActiveTab(stages[currentIndex + 1].id);
                             }
-                         }} disabled={activeTab === 'stage6'}>
+                         }} disabled={activeTab === 'stage5'}>
                             Next Stage <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
                     </div>
@@ -220,3 +220,5 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
