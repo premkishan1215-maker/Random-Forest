@@ -80,7 +80,7 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
     };
 
     return (
-        <svg viewBox={`0 0 ${totalWidth} ${totalHeight}`} className="w-full h-auto min-h-[400px]">
+        <svg viewBox={`0 0 ${totalWidth} ${totalHeight}`} className="w-full h-auto min-h-[500px]">
             {renderNode(1, totalWidth / 2, 20, 'root')}
         </svg>
     );
@@ -145,7 +145,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                         ))}
                     </TabsList>
 
-                    <div className="mt-4 p-4 border rounded-md min-h-[400px]">
+                    <div className="mt-4 p-4 border rounded-md min-h-[600px]">
                         <TabsContent value="stage1">
                              <CardHeader className="p-0 mb-4">
                                 <CardTitle>Stage 1: Understanding the Data</CardTitle>
@@ -204,12 +204,12 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <div className="p-6 text-center border rounded-md">
+                                    <div className="p-6 text-center border rounded-md min-h-[550px] flex items-center justify-center">
                                         <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
-                                        <p className="text-center text-sm mt-4 text-muted-foreground">
-                                            A tree grows by splitting data based on feature rules. This is one of many trees in the forest.
-                                        </p>
                                     </div>
+                                    <p className="text-center text-sm mt-4 text-muted-foreground">
+                                        A tree grows by splitting data based on feature rules. This is one of many trees in the forest.
+                                    </p>
                                 </div>
                             </div>
                         </TabsContent>
