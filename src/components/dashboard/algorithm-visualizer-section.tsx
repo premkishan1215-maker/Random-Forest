@@ -43,13 +43,11 @@ interface AlgorithmVisualizerSectionProps {
 }
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
-    const totalWidth = 1400;
+    const totalWidth = 2000;
     const yStep = 80;
     const totalHeight = (depth * yStep) + 40;
 
-    // Adjust the base of the exponent based on depth to control spread
-    // A smaller base for smaller depths (more spread), a larger base for larger depths (less spread)
-    const expansionFactor = 2.1 + (depth / 15);
+    const expansionFactor = 2.1 + (depth / 10);
 
     const renderNode = (level: number, cx: number, cy: number, key: string) => {
         if (level > depth) return null;
@@ -290,6 +288,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
 
     
 
