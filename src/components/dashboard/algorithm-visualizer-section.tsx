@@ -84,11 +84,6 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
     const dataUnderstandingImage = PlaceHolderImages.find(img => img.id === audienceData.dataUnderstandingImageId);
     const [activeTab, setActiveTab] = React.useState("stage1");
 
-    const [showData, setShowData] = React.useState(false);
-    const handleGenerateData = () => {
-        setShowData(true);
-    };
-
     const stages = [
       { id: 'stage1', name: 'Data Understanding', icon: Box },
       { id: 'stage2', name: 'Building Trees', icon: Spline },
@@ -135,7 +130,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             overviewData: generatedData
         };
 
-    }, [audienceData, parameters.n_estimators, showData]);
+    }, [audienceData, parameters.n_estimators]);
 
     return (
         <Card className="shadow-lg">
@@ -197,16 +192,6 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 </div>
                             </div>
                             <div className="mt-6">
-                                {!showData ? (
-                                <div className="flex flex-col items-center justify-center text-center py-12">
-                                    <audienceData.datasetSummaryIcon className="w-16 h-16 mb-4 text-primary/80" />
-                                    <h3 className="text-xl font-semibold mb-2">Ready to explore the data?</h3>
-                                    <p className="text-muted-foreground mb-4">Generate a synthetic dataset to begin.</p>
-                                    <Button onClick={handleGenerateData}>
-                                    Generate New Data <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
-                                </div>
-                                ) : (
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Dataset Overview</CardTitle>
@@ -233,7 +218,6 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                         </Table>
                                     </CardContent>
                                 </Card>
-                                )}
                             </div>
                         </TabsContent>
                         
