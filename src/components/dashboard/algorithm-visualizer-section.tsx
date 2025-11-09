@@ -1,4 +1,5 @@
 
+
 'use client'
 
 import * as React from 'react';
@@ -111,11 +112,11 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                     <h3 className="font-semibold text-lg">Dataset: {audienceData.datasetLabel}</h3>
                                     <Card>
                                         <CardHeader className="pb-2">
-                                            <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target)</CardTitle>
+                                            <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target Feature)</CardTitle>
                                         </CardHeader>
                                         <CardContent>
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <span>To predict if the outcome will be</span>
+                                                <span>Our goal is to predict the <strong className="text-primary">{audienceData.target.name}</strong>, which can be</span>
                                                 <Badge variant="secondary">{audienceData.target.labels[0]}</Badge>
                                                 <span>or</span>
                                                 <Badge variant="secondary">{audienceData.target.labels[1]}</Badge>.
@@ -124,7 +125,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                     </Card>
                                     <Card>
                                         <CardHeader className="pb-2">
-                                            <CardTitle className="text-md flex items-center gap-2"><ListTree className="w-5 h-5 text-primary"/> Key Factors (Features)</CardTitle>
+                                            <CardTitle className="text-md flex items-center gap-2"><ListTree className="w-5 h-5 text-primary"/> Key Factors (Input Features)</CardTitle>
                                         </CardHeader>
                                         <CardContent>
                                             <ul className="list-disc list-inside space-y-1">
