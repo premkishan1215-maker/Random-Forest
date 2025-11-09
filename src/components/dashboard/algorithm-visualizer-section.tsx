@@ -44,7 +44,7 @@ interface AlgorithmVisualizerSectionProps {
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
     const totalWidth = 1400; // Increased width for better spacing
-    const yStep = 60;
+    const yStep = 80;
     const totalHeight = (depth * yStep) + 40;
 
     const renderNode = (level: number, cx: number, cy: number, key: string) => {
@@ -286,6 +286,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
 
     
 
