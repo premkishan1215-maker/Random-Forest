@@ -7,7 +7,6 @@ import { AUDIENCE_DATA } from '@/lib/data';
 import DashboardHeader from '@/components/dashboard/dashboard-header';
 import DatasetStorySection from '@/components/dashboard/dataset-story-section';
 import AlgorithmVisualizerSection from '@/components/dashboard/algorithm-visualizer-section';
-import LearningSummarySection from '@/components/dashboard/learning-summary-section';
 
 export default function Home() {
   const [audience, setAudience] = React.useState<Audience>('Farmer');
@@ -43,12 +42,12 @@ export default function Home() {
         onAudienceChange={handleAudienceChange}
       />
       <main key={key} className="flex-grow p-4 md:p-8">
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-          <div className="xl:col-span-12">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="col-span-1">
             <DatasetStorySection audienceData={audienceData} audience={audience} />
           </div>
 
-          <div className="xl:col-span-8">
+          <div className="col-span-1">
              <AlgorithmVisualizerSection 
                 audience={audience} 
                 audienceData={audienceData} 
@@ -56,16 +55,8 @@ export default function Home() {
                 setParameters={setParameters}
              />
           </div>
-          
-          <div className="xl:col-span-4">
-            <div className="flex flex-col gap-6">
-               <LearningSummarySection />
-            </div>
-          </div>
         </div>
       </main>
     </div>
   );
 }
-
-    
