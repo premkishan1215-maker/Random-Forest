@@ -111,14 +111,19 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardDescription>{audienceData.metaphors.sampling}</CardDescription>
                             </CardHeader>
                              <div className="p-6">
-                                <div className="grid grid-cols-5 gap-2">
-                                    {Array.from({ length: 15 }).map((_, i) => (
-                                        <div key={i} className={`h-10 w-full rounded-md border flex items-center justify-center text-xs text-muted-foreground animate-jump-sample`} style={{animationDelay: `${i * 100}ms`}}>
-                                            Sample {i + 1}
-                                        </div>
-                                    ))}
+                                <div className="grid grid-cols-1 gap-2 text-xs">
+                                    <div className="grid grid-cols-4 gap-2 font-bold bg-muted p-2 rounded-t-md">
+                                        {audienceData.features.map(f => <div key={f.name}>{f.name}</div>)}
+                                        <div>{audienceData.target.name}</div>
+                                    </div>
+                                    <div className="grid grid-cols-4 gap-2 p-2 border rounded-b-md animate-jump-sample">
+                                        <div>{(Math.random() * 100).toFixed(1)}</div>
+                                        <div>{(Math.random() * 100).toFixed(1)}</div>
+                                        <div>{(Math.random() * 100).toFixed(1)}</div>
+                                        <div>{audienceData.target.labels[Math.random() > 0.5 ? 0 : 1]}</div>
+                                    </div>
                                 </div>
-                                <p className="text-center text-sm mt-4 text-muted-foreground">Random rows "jump" into sub-datasets for each tree.</p>
+                                <p className="text-center text-sm mt-4 text-muted-foreground">A random row "jumps" from the main dataset to form a sub-dataset for one tree.</p>
                             </div>
                         </TabsContent>
 
