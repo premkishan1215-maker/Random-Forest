@@ -2,8 +2,30 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trees, ArrowRight, TreeDeciduous, Users, Vote } from 'lucide-react';
+import { Trees, ArrowRight, TreeDeciduous, Users, Vote, Database, Tractor, Stethoscope, GraduationCap } from 'lucide-react';
 import * as React from 'react';
+import type { Audience, AudienceData } from '@/lib/types';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+const audienceOptions: { value: Audience; label: string; icon: React.ElementType }[] = [
+  { value: 'Farmer', label: 'Farmer', icon: Tractor },
+  { value: 'Doctor', label: 'Doctor', icon: Stethoscope },
+  { value: 'Student', label: 'Student', icon: GraduationCap },
+];
 
 const AnimatedIcon = ({ icon: Icon, delay, text }: { icon: React.ElementType, delay: number, text: string }) => (
   <div
@@ -15,7 +37,33 @@ const AnimatedIcon = ({ icon: Icon, delay, text }: { icon: React.ElementType, de
   </div>
 );
 
-export default function LandingPage({ onGetStarted }: { onGetStarted: () => void }) {
+interface LandingPageProps {
+  onGetStarted: () => void;
+  audience: Audience;
+  onAudienceChange: (audience: Audience) => void;
+  isDataGenerated: boolean;
+  onGenerateData: () => void;
+  audienceData: AudienceData;
+}
+
+export default function LandingPage({ onGetStarted, audience, onAudienceChange, isDataGenerated, onGenerateData, audienceData }: LandingPageProps) {
+  
+  const [overviewData, setOverviewData] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    if (isDataGenerated) {
+        const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+        const generatedData = Array.from({length: 15}).map((_, i) => ({
+          id: i + 1,
+          feature1: getRandomItem(audienceData.features[0].values || []),
+          feature2: getRandomItem(audienceData.features[1].values || []),
+          feature3: getRandomItem(audienceData.features[2].values || []),
+          target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
+        }));
+        setOverviewData(generatedData);
+    }
+  }, [isDataGenerated, audienceData]);
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-4 sm:p-6 md:p-8 text-center overflow-hidden">
        <style jsx>{`
@@ -54,30 +102,74 @@ export default function LandingPage({ onGetStarted }: { onGetStarted: () => void
               Ever wondered how many small decisions can lead to one great one? Let's explore the Random Forest algorithm in a simple, visual way.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 items-start">
-              <AnimatedIcon icon={TreeDeciduous} delay={0.8} text="Start with a single 'tree' making a simple decision." />
-              
-              <div className="flex justify-center items-center h-full opacity-0" style={{ animation: 'fadeInUp 0.6s ease-out 1.0s forwards' }}>
-                <ArrowRight className="w-8 h-8 text-muted-foreground hidden md:block" />
-              </div>
+            <div className="opacity-0" style={{ animation: 'fadeInUp 0.5s ease-out 0.7s forwards' }}>
+              <Card className="shadow-lg max-w-lg mx-auto">
+                <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+                  <div className="flex items-center gap-4 mb-6 w-full">
+                    <span className="text-md font-medium text-muted-foreground">Choose Your Audience:</span>
+                    <Select
+                      value={audience}
+                      onValueChange={(value: Audience) => onAudienceChange(value)}
+                    >
+                      <SelectTrigger className="w-full font-semibold">
+                        <SelectValue placeholder="Choose Audience" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {audienceOptions.map(option => (
+                          <SelectItem key={option.value} value={option.value}>
+                            <div className="flex items-center gap-2">
+                              <option.icon className="h-4 w-4" />
+                              <span>{option.label}</span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-              <AnimatedIcon icon={Users} delay={1.2} text="Build a 'forest' from many diverse trees." />
-              
-               <div className="flex justify-center items-center h-full opacity-0" style={{ animation: 'fadeInUp 0.6s ease-out 1.4s forwards' }}>
-                <ArrowRight className="w-8 h-8 text-muted-foreground hidden md:block" />
-              </div>
+                  {!isDataGenerated ? (
+                    <>
+                      <Database className="w-12 h-12 mb-4 text-primary/80" />
+                      <h2 className="text-xl font-headline font-bold mb-2">Generate Your Dataset</h2>
+                      <p className="text-muted-foreground mb-6 max-w-md text-sm">
+                        To begin, generate a synthetic dataset tailored for the <strong className="text-primary">{audience}</strong> audience.
+                      </p>
+                      <Button size="lg" onClick={onGenerateData}>
+                        Generate Dataset <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="w-full">
+                      <h3 className="font-bold mb-4">Generated Sample Data for {audience}</h3>
+                      <div className="max-h-60 overflow-y-auto border rounded-md">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              {audienceData.features.map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
+                              <TableHead>{audienceData.target.name}</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {overviewData.map((row) => (
+                              <TableRow key={row.id}>
+                                <TableCell>{row.feature1}</TableCell>
+                                <TableCell>{row.feature2}</TableCell>
+                                <TableCell>{row.feature3}</TableCell>
+                                <TableCell>{row.target}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                       <Button size="lg" onClick={onGetStarted} className="mt-6">
+                          Explore the Algorithm <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </div>
+                  )}
+
+                </CardContent>
+              </Card>
             </div>
-
-            <div className="flex justify-center mb-12 opacity-0" style={{ animation: 'fadeInUp 0.6s ease-out 1.6s forwards' }}>
-                <AnimatedIcon icon={Vote} delay={0} text="Let them vote to make a final, smarter prediction!" />
-            </div>
-
-            <div className="opacity-0" style={{ animation: 'scaleIn 0.5s ease-out 2.0s forwards' }}>
-                <Button size="lg" onClick={onGetStarted}>
-                    Let's Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-            </div>
-
           </CardContent>
         </Card>
       </div>

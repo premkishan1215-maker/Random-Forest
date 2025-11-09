@@ -7,9 +7,6 @@ import { AUDIENCE_DATA } from '@/lib/data';
 import DashboardHeader from '@/components/dashboard/dashboard-header';
 import DatasetStorySection from '@/components/dashboard/dataset-story-section';
 import AlgorithmVisualizerSection from '@/components/dashboard/algorithm-visualizer-section';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Database } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import LandingPage from '@/components/landing/landing-page';
 
 export default function Home() {
@@ -49,7 +46,16 @@ export default function Home() {
   }
 
   if (!showDashboard) {
-    return <LandingPage onGetStarted={() => setShowDashboard(true)} />;
+    return (
+      <LandingPage
+        audience={audience}
+        onAudienceChange={handleAudienceChange}
+        isDataGenerated={isDataGenerated}
+        onGenerateData={handleGenerateData}
+        onGetStarted={() => setShowDashboard(true)}
+        audienceData={audienceData}
+      />
+    );
   }
 
   return (
@@ -59,20 +65,6 @@ export default function Home() {
         onAudienceChange={handleAudienceChange}
       />
       <main key={key} className="flex-grow p-4 md:p-8">
-        {!isDataGenerated ? (
-           <Card className="shadow-lg animate-fade-in">
-              <CardContent className="p-10 flex flex-col items-center justify-center text-center">
-                <Database className="w-16 h-16 mb-4 text-primary/80" />
-                <h2 className="text-2xl font-headline font-bold mb-2">Generate Your Dataset</h2>
-                <p className="text-muted-foreground mb-6 max-w-md">
-                  To begin your journey into the Random Forest algorithm, first generate a synthetic dataset tailored for the <strong className="text-primary">{audience}</strong> audience.
-                </p>
-                <Button size="lg" onClick={handleGenerateData}>
-                  Generate Dataset <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </CardContent>
-            </Card>
-        ) : (
           <div className="grid grid-cols-1 gap-6">
             <div className="col-span-1">
               <DatasetStorySection audienceData={audienceData} />
@@ -87,7 +79,6 @@ export default function Home() {
                />
             </div>
           </div>
-        )}
       </main>
     </div>
   );
