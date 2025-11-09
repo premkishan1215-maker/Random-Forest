@@ -154,76 +154,66 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardTitle>Stage 1: Understanding the Data</CardTitle>
                                 <CardDescription>First, we get to know our data, just like a {audience.toLowerCase()} studies the {audience === 'Farmer' ? 'land' : audience === 'Doctor' ? 'patient chart' : 'textbook'}.</CardDescription>
                             </CardHeader>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="flex flex-col gap-4">
-                                    <h3 className="font-semibold text-lg">Dataset: {audienceData.datasetLabel}</h3>
-                                    <div className="space-y-4">
-                                        <Card>
-                                            <CardHeader className="pb-2">
-                                                <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target Feature)</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <div className="flex items-center gap-2 flex-wrap">
-                                                    <span>Our goal is to predict the <strong className="text-primary">{audienceData.target.name}</strong>, which can be</span>
-                                                    <Badge variant="secondary">{audienceData.target.labels[0]}</Badge>
-                                                    <span>or</span>
-                                                    <Badge variant="secondary">{audienceData.target.labels[1]}</Badge>.
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader className="pb-2">
-                                                <CardTitle className="text-md flex items-center gap-2"><ListTree className="w-5 h-5 text-primary"/> Key Factors (Input Features)</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <ul className="list-disc list-inside space-y-1">
-                                                    {audienceData.features.map(feature => (
-                                                        <li key={feature.name}>
-                                                            <strong>{feature.name}</strong>
-                                                            {feature.unit && <span className="text-muted-foreground text-sm"> (in {feature.unit})</span>}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </CardContent>
-                                        </Card>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <Card>
-                                        <CardHeader>
-                                            <div className="flex items-center justify-between">
-                                                <CardTitle>Sample Data</CardTitle>
-                                                <Button variant="outline" size="sm" onClick={onGenerateData}>
-                                                    <RefreshCw className="mr-2 h-4 w-4" />
-                                                    Generate New Sample
-                                                </Button>
-                                            </div>
-                                            <CardDescription>A small sample from the generated dataset.</CardDescription>
+                                        <CardHeader className="pb-2">
+                                            <CardTitle className="text-md flex items-center gap-2"><Target className="w-5 h-5 text-primary"/> Prediction Goal (Target Feature)</CardTitle>
                                         </CardHeader>
                                         <CardContent>
-                                            <div className="max-h-60 overflow-y-auto border rounded-md">
-                                                <Table>
-                                                <TableHeader>
-                                                    <TableRow>
-                                                    {audienceData.features.map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
-                                                    <TableHead>{audienceData.target.name}</TableHead>
-                                                    </TableRow>
-                                                </TableHeader>
-                                                <TableBody>
-                                                    {generatedData.slice(0, 5).map((row, i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell>{row.feature1}</TableCell>
-                                                        <TableCell>{row.feature2}</TableCell>
-                                                        <TableCell>{row.feature3}</TableCell>
-                                                        <TableCell>{row.target}</TableCell>
-                                                    </TableRow>
-                                                    ))}
-                                                </TableBody>
-                                                </Table>
-                                            </div>
+                                            <p className="text-sm">Our goal is to predict the <strong className="text-primary">{audienceData.target.name}</strong>, which can be <Badge variant="secondary">{audienceData.target.labels[0]}</Badge> or <Badge variant="secondary">{audienceData.target.labels[1]}</Badge>.</p>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader className="pb-2">
+                                            <CardTitle className="text-md flex items-center gap-2"><ListTree className="w-5 h-5 text-primary"/> Key Factors (Input Features)</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <ul className="list-disc list-inside space-y-1 text-sm">
+                                                {audienceData.features.map(feature => (
+                                                    <li key={feature.name}>
+                                                        <strong>{feature.name}</strong>
+                                                        {feature.unit && <span className="text-muted-foreground text-sm"> (in {feature.unit})</span>}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </CardContent>
                                     </Card>
                                 </div>
+                                <Card>
+                                    <CardHeader>
+                                        <div className="flex items-center justify-between">
+                                            <CardTitle>Sample Data for {audienceData.datasetLabel}</CardTitle>
+                                            <Button variant="outline" size="sm" onClick={onGenerateData}>
+                                                <RefreshCw className="mr-2 h-4 w-4" />
+                                                Generate New Sample
+                                            </Button>
+                                        </div>
+                                        <CardDescription>A random sample from the generated dataset.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="max-h-96 overflow-y-auto border rounded-md">
+                                            <Table>
+                                            <TableHeader>
+                                                <TableRow>
+                                                {audienceData.features.map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
+                                                <TableHead>{audienceData.target.name}</TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {generatedData.slice(0, 10).map((row, i) => (
+                                                <TableRow key={i}>
+                                                    <TableCell>{row.feature1}</TableCell>
+                                                    <TableCell>{row.feature2}</TableCell>
+                                                    <TableCell>{row.feature3}</TableCell>
+                                                    <TableCell>{row.target}</TableCell>
+                                                </TableRow>
+                                                ))}
+                                            </TableBody>
+                                            </Table>
+                                        </div>
+                                    </CardContent>
+                                </Card>
                             </div>
                         </TabsContent>
                         
@@ -324,4 +314,5 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             </CardContent>
         </Card>
     );
-}
+
+    
