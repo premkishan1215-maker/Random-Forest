@@ -53,7 +53,7 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
         const children = [];
         const nextCy = cy + yStep;
         
-        const xOffset = totalWidth / Math.pow(1.9, level + 1);
+        const xOffset = totalWidth / Math.pow(2.1, level + 1);
 
         const leftCx = cx - xOffset;
         const rightCx = cx + xOffset;
