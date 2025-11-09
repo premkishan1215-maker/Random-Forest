@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Trees } from 'lucide-react';
+import { Trees, GitBranch, Binary } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { AudienceData } from '@/lib/types';
 import * as React from 'react';
@@ -21,20 +21,127 @@ interface InteractiveTreeExplorerProps {
     audienceData: AudienceData;
 }
 
+type TreeNode = {
+    id: string;
+    type: 'split' | 'leaf';
+    condition?: string;
+    value?: string;
+    children?: TreeNode[];
+};
+
+const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDepth = 1): TreeNode => {
+    const id = `${currentDepth}-${Math.random()}`;
+    
+    if (currentDepth >= maxDepth || Math.random() < 0.4) {
+        // Leaf node
+        return {
+            id,
+            type: 'leaf',
+            value: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1],
+        };
+    }
+
+    // Split node
+    const featureIndex = Math.floor(Math.random() * audienceData.features.length);
+    const feature = audienceData.features[featureIndex];
+    const valueIndex = Math.floor(Math.random() * (feature.values?.length || 1));
+    const value = feature.values?.[valueIndex] || 'Value';
+
+    return {
+        id,
+        type: 'split',
+        condition: `${feature.name} = ${value}`,
+        children: [
+            generateRandomTree(audienceData, maxDepth, currentDepth + 1),
+            generateRandomTree(audienceData, maxDepth, currentDepth + 1),
+        ],
+    };
+};
+
+const TreeDiagram = ({ treeData, audienceData }: { treeData: TreeNode; audienceData: AudienceData; }) => {
+    const yStep = 90;
+    const xStep = 100;
+
+    const getDimensions = (node: TreeNode, depth = 0): { width: number; height: number } => {
+        if (!node.children || node.children.length === 0) {
+            return { width: xStep, height: yStep };
+        }
+        const childDimensions = node.children.map(child => getDimensions(child, depth + 1));
+        const width = childDimensions.reduce((sum, dim) => sum + dim.width, 0);
+        const height = yStep + Math.max(...childDimensions.map(dim => dim.height));
+        return { width, height };
+    };
+
+    const { width, height } = getDimensions(treeData);
+
+    const renderNode = (node: TreeNode, x: number, y: number, parentX: number | null, parentY: number | null, xOffset: number): React.ReactNode[] => {
+        const elements: React.ReactNode[] = [];
+
+        if (parentX !== null && parentY !== null) {
+            elements.push(
+                <path
+                    key={`line-${node.id}`}
+                    d={`M ${parentX} ${parentY + 20} C ${parentX} ${parentY + yStep / 2}, ${x} ${y - yStep / 2}, ${x} ${y - 20}`}
+                    stroke="hsl(var(--border))"
+                    strokeWidth="2"
+                    fill="none"
+                />
+            );
+            const isYes = (x < parentX);
+             elements.push(
+                <text key={`label-${node.id}`} x={(x + parentX)/2} y={(y+parentY)/2 - 10} fontSize="10" textAnchor="middle" fill="hsl(var(--muted-foreground))">
+                    {isYes ? 'Yes' : 'No'}
+                </text>
+            );
+        }
+
+        if (node.type === 'split') {
+            elements.push(
+                <g key={`g-${node.id}`} transform={`translate(${x}, ${y})`}>
+                    <rect x="-60" y="-15" width="120" height="30" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
+                    <text textAnchor="middle" dy=".3em" fontSize="11" fontWeight="bold">{node.condition}</text>
+                </g>
+            );
+
+            const leftChildX = x - xOffset / 2;
+            const rightChildX = x + xOffset / 2;
+            
+            if(node.children){
+                elements.push(...renderNode(node.children[0], leftChildX, y + yStep, x, y, xOffset / 2));
+                elements.push(...renderNode(node.children[1], rightChildX, y + yStep, x, y, xOffset / 2));
+            }
+        } else {
+            const isPositive = node.value === audienceData.target.labels[0];
+            elements.push(
+                <g key={`g-${node.id}`} transform={`translate(${x}, ${y})`}>
+                    <circle r="20" fill={isPositive ? 'hsl(var(--primary))' : 'hsl(var(--destructive))'} />
+                    <text textAnchor="middle" dy=".3em" fontSize="10" fill="hsl(var(--primary-foreground))" className="font-bold">{node.value}</text>
+                </g>
+            );
+        }
+
+        return elements;
+    };
+
+    return (
+        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto min-h-[300px]">
+            {renderNode(treeData, width / 2, 30, null, null, width / 2)}
+        </svg>
+    );
+};
+
+
 export default function InteractiveTreeExplorer({ treeId, audienceData }: InteractiveTreeExplorerProps) {
   const [mockTreeData, setMockTreeData] = React.useState<any[]>([]);
   const [prediction, setPrediction] = React.useState('');
+  const [diagramData, setDiagramData] = React.useState<TreeNode | null>(null);
   
-  React.useEffect(() => {
-    // Generate the prediction when the component mounts
+  const generateDataForTree = React.useCallback(() => {
+    // Generate prediction
     setPrediction(Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]);
-  }, [audienceData.target.labels]);
 
-
-  const generateMockDataForDialog = () => {
+    // Generate bootstrap sample
     const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
-    
-    // Full "original" dataset
     const originalData = Array.from({length: 10}).map((_, i) => ({
       id: i + 1,
       feature1: getRandomItem(audienceData.features[0].values || []),
@@ -43,17 +150,24 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
       target: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1]
     }));
 
-    // Create a bootstrap sample by sampling with replacement
     const bootstrapSample = Array.from({ length: originalData.length }).map(() => {
         const randomIndex = Math.floor(Math.random() * originalData.length);
         return originalData[randomIndex];
     });
 
     setMockTreeData(bootstrapSample);
-  };
+    
+    // Generate tree diagram structure
+    setDiagramData(generateRandomTree(audienceData));
+
+  }, [audienceData]);
+
+  React.useEffect(() => {
+     generateDataForTree();
+  }, [generateDataForTree]);
   
   return (
-    <Dialog onOpenChange={(open) => open && generateMockDataForDialog()}>
+    <Dialog onOpenChange={(open) => open && generateDataForTree()}>
       <DialogTrigger asChild>
         <div className="flex flex-col items-center gap-2">
             <Button variant="ghost" className="h-20 w-full flex flex-col gap-1 items-center justify-center border-2 border-dashed hover:border-primary hover:bg-accent/10 transition-colors duration-200">
@@ -65,90 +179,54 @@ export default function InteractiveTreeExplorer({ treeId, audienceData }: Intera
             </Badge>
         </div>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="max-w-6xl">
         <DialogHeader>
           <DialogTitle className="font-headline text-2xl">Decision Tree #{treeId}</DialogTitle>
           <DialogDescription>
             Exploring the decisions made by a single tree in the forest. This tree was trained on a random subset of the data.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-4 max-h-[70vh] overflow-y-auto p-1">
-            <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4 max-h-[70vh] overflow-y-auto p-1">
+            <div className="lg:col-span-1">
                 <Card className="h-full shadow-md">
                     <CardHeader>
                         <CardTitle>Decision Structure</CardTitle>
                         <CardDescription>A visual map of this tree's logic.</CardDescription>
                     </CardHeader>
                     <CardContent className="p-4 flex items-center justify-center">
-                        <svg viewBox="0 0 220 190" className="w-full h-auto">
-                            <g transform="translate(10, 10)">
-                                {/* Lines */}
-                                <path d="M 100 25 V 55" stroke="hsl(var(--border))" strokeWidth="2" />
-                                <path d="M 100 75 L 50 105" stroke="hsl(var(--border))" strokeWidth="2" />
-                                <path d="M 100 75 L 150 105" stroke="hsl(var(--border))" strokeWidth="2" />
-                                <path d="M 50 125 L 25 145" stroke="hsl(var(--border))" strokeWidth="2" />
-                                <path d="M 50 125 L 75 145" stroke="hsl(var(--border))" strokeWidth="2" />
-
-                                {/* Nodes */}
-                                <g transform="translate(100, 20)">
-                                    <circle r="15" fill="hsl(var(--accent))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9" fill="hsl(var(--accent-foreground))" className="font-bold">Root</text>
-                                </g>
-                                <g transform="translate(100, 65)">
-                                    <rect x="-40" y="-10" width="80" height="20" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[0].name.split(' ')[0]} == 'Value'</text>
-                                </g>
-                                
-                                <g transform="translate(50, 115)">
-                                    <rect x="-40" y="-10" width="80" height="20" rx="4" fill="hsl(var(--card))" stroke="hsl(var(--border))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9">{audienceData.features[1].name.split(' ')[0]} == 'Value'</text>
-                                </g>
-
-                                <g transform="translate(150, 115)">
-                                    <circle r="15" fill="hsl(var(--primary))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9" fill="hsl(var(--primary-foreground))" className="font-bold">Leaf</text>
-                                </g>
-
-                                <g transform="translate(25, 150)">
-                                    <circle r="15" fill="hsl(var(--primary))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9" fill="hsl(var(--primary-foreground))" className="font-bold">Leaf</text>
-                                </g>
-                                
-                                <g transform="translate(75, 150)">
-                                    <circle r="15" fill="hsl(var(--destructive))" />
-                                    <text textAnchor="middle" dy=".3em" fontSize="9" fill="hsl(var(--primary-foreground))" className="font-bold">Leaf</text>
-                                </g>
-                            </g>
-                        </svg>
+                        {diagramData && <TreeDiagram treeData={diagramData} audienceData={audienceData} />}
                     </CardContent>
                 </Card>
             </div>
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-1">
                 <Card className="shadow-md h-full">
                     <CardHeader>
                         <CardTitle>Bootstrap Sample</CardTitle>
                         <CardDescription>The data subset this tree was trained on.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Sample ID</TableHead>
-                                    {audienceData.features.slice(0, 2).map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
-                                    <TableHead>{audienceData.target.name}</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {mockTreeData.map((row, i) => (
-                                <TableRow key={i}>
-                                    <TableCell>{row.id}</TableCell>
-                                    <TableCell>{row.feature1}</TableCell>
-                                    <TableCell>{row.feature2}</TableCell>
-                                    <TableCell>{row.target}</TableCell>
-                                </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                         <div className="max-h-[50vh] overflow-y-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Sample ID</TableHead>
+                                        {audienceData.features.map(f => <TableHead key={f.name}>{f.name}</TableHead>)}
+                                        <TableHead>{audienceData.target.name}</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {mockTreeData.map((row, i) => (
+                                    <TableRow key={i}>
+                                        <TableCell>{row.id}</TableCell>
+                                        <TableCell>{row.feature1}</TableCell>
+                                        <TableCell>{row.feature2}</TableCell>
+                                        <TableCell>{row.feature3}</TableCell>
+                                        <TableCell>{row.target}</TableCell>
+                                    </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                         </div>
                     </CardContent>
                 </Card>
             </div>
