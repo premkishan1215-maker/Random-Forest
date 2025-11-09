@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "farmer-scene",
+      "description": "A vibrant farm scene with fields of crops under a sunny sky.",
+      "imageUrl": "https://images.unsplash.com/photo-1696441567908-6a04d49e1350?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYXJtJTIwZmllbGR8ZW58MHx8fHwxNzYyNzE4NzQwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farm field"
+    },
+    {
+      "id": "doctor-scene",
+      "description": "A modern hospital setting with medical equipment.",
+      "imageUrl": "https://images.unsplash.com/photo-1565262353342-6e919eab5b58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMGludGVyaW9yfGVufDB8fHx8MTc2MjcwNzYwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hospital interior"
+    },
+    {
+      "id": "student-scene",
+      "description": "A bright classroom with books and a blackboard.",
+      "imageUrl": "https://images.unsplash.com/photo-1728206313441-281ef4ea5d62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjbGFzc3Jvb20lMjBsaWJyYXJ5fGVufDB8fHx8MTc2MjY4OTEyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "classroom library"
+    },
+    {
+      "id": "tree-illustration",
+      "description": "An illustration of a single decision tree.",
+      "imageUrl": "https://images.unsplash.com/photo-1740085837920-935bbc82e4c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHJlZSUyMGlsbHVzdHJhdGlvbnxlbnwwfHx8fDE3NjI3MTg3NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tree illustration"
+    },
+    {
+      "id": "forest-illustration",
+      "description": "An illustration of a forest of decision trees.",
+      "imageUrl": "https://images.unsplash.com/photo-1592859600972-1b0834d83747?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb3Jlc3QlMjBwYXRofGVufDB8fHx8MTc2MjcxODczOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "forest path"
+    },
+    {
+      "id": "celebration-scene",
+      "description": "A celebratory scene with confetti.",
+      "imageUrl": "https://images.unsplash.com/photo-1681396095394-8869d0ff18f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjZWxlYnJhdGlvbiUyMGNvbmZldHRpfGVufDB8fHx8MTc2MjY2NDA5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "celebration confetti"
+    },
+    {
+      "id": "data-understanding-farmer",
+      "description": "A farmer pointing to a rainfall chart.",
+      "imageUrl": "https://images.unsplash.com/photo-1619350917911-3895d7875d98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmYXJtZXIlMjBjaGFydHxlbnwwfHx8fDE3NjI3MTg3Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer chart"
+    },
+    {
+      "id": "data-understanding-doctor",
+      "description": "A doctor analyzing a medical scan.",
+      "imageUrl": "https://images.unsplash.com/photo-1691935152212-596d5ee37383?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkb2N0b3IlMjBzY2FufGVufDB8fHx8MTc2MjcxODczOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "doctor scan"
+    },
+    {
+      "id": "data-understanding-student",
+      "description": "A student looking at a complex formula on a blackboard.",
+      "imageUrl": "https://images.unsplash.com/photo-1758685848791-87860bb29292?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzdHVkZW50JTIwYmxhY2tib2FyZHxlbnwwfHx8fDE3NjI3MTg3Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student blackboard"
+    }
+  ]
 }
