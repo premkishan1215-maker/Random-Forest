@@ -43,20 +43,29 @@ interface AlgorithmVisualizerSectionProps {
 }
 
 const AnimatedTree = ({ depth }: { depth: number }) => {
-    const renderNode = (level: number, cx: number, cy: number, key:string) => {
-        if (level > depth) return null;
-        const children = [];
-        const nextCy = cy + 60;
-        const xOffset = 120 / (level + 1);
+    const totalWidth = 300;
+    const yStep = 50;
+    const totalHeight = (depth * yStep) + 40;
 
-        const leftCx = cx - xOffset;
-        const rightCx = cx + xOffset;
+    const renderNode = (level: number, cx: number, cy: number, key: string, parentCx: number | null, parentCy: number | null) => {
+        if (level > depth) return null;
+
+        const children = [];
+        const nextCy = cy + yStep;
+        
+        // Use powers of 2 to determine spread at each level
+        const spreadFactor = Math.pow(2, depth - level -1);
+        const xOffset = totalWidth / Math.pow(2, level + 1);
+
+
+        const leftCx = cx - xOffset * (level > 1 ? 1.5 : 2.5);
+        const rightCx = cx + xOffset * (level > 1 ? 1.5 : 2.5);
 
         if (level < depth) {
             children.push(<line key={`${key}-l-line`} x1={cx} y1={cy} x2={leftCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
-            children.push(renderNode(level + 1, leftCx, nextCy, `${key}-l`));
+            children.push(renderNode(level + 1, leftCx, nextCy, `${key}-l`, cx, cy));
             children.push(<line key={`${key}-r-line`} x1={cx} y1={cy} x2={rightCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
-            children.push(renderNode(level + 1, rightCx, nextCy, `${key}-r`));
+            children.push(renderNode(level + 1, rightCx, nextCy, `${key}-r`, cx, cy));
         }
 
         const isLeaf = level === depth;
@@ -73,8 +82,8 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
     };
 
     return (
-        <svg viewBox="0 0 300 250" className="w-full h-auto">
-            {renderNode(1, 150, 20, 'root')}
+        <svg viewBox={`-50 0 ${totalWidth + 100} ${totalHeight}`} className="w-full h-auto">
+            {renderNode(1, totalWidth / 2, 20, 'root', null, null)}
         </svg>
     );
 };
@@ -280,3 +289,5 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+
+    
