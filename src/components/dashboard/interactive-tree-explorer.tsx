@@ -11,13 +11,19 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Trees } from 'lucide-react';
-import FeatureImportanceChart from './charts/feature-importance-chart';
-import { MOCK_DATA_CHARTS } from '@/lib/data';
-import { Separator } from '@/components/ui/separator';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 interface InteractiveTreeExplorerProps {
     treeId: number;
 }
+
+const mockTreeData = [
+    { sampleId: 1, feature1: 12.3, feature2: 45.1, feature3: 2.3, result: 'Pass' },
+    { sampleId: 3, feature1: 8.1, feature2: 50.2, feature3: 1.8, result: 'Pass' },
+    { sampleId: 3, feature1: 8.1, feature2: 50.2, feature3: 1.8, result: 'Pass' }, // duplicate for bootstrap
+    { sampleId: 5, feature1: 25.6, feature2: 33.7, feature3: 4.1, result: 'Fail' },
+    { sampleId: 8, feature1: 15.0, feature2: 60.9, feature3: 2.5, result: 'Pass' },
+]
 
 export default function InteractiveTreeExplorer({ treeId }: InteractiveTreeExplorerProps) {
   return (
@@ -86,30 +92,33 @@ export default function InteractiveTreeExplorer({ treeId }: InteractiveTreeExplo
                     </CardContent>
                 </Card>
             </div>
-            <div className="lg:col-span-2 flex flex-col gap-6">
-                <Card className="shadow-md">
+            <div className="lg:col-span-2">
+                <Card className="shadow-md h-full">
                     <CardHeader>
-                        <CardTitle>This Tree's Vote</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex justify-around items-center pt-2">
-                        <div className="text-center">
-                            <p className="text-sm text-muted-foreground">Predicts 'Pass'</p>
-                            <p className="text-3xl font-bold text-primary">65%</p>
-                        </div>
-                        <Separator orientation="vertical" className="h-16" />
-                        <div className="text-center">
-                            <p className="text-sm text-muted-foreground">Predicts 'Fail'</p>
-                            <p className="text-3xl font-bold text-destructive">35%</p>
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card className="shadow-md">
-                    <CardHeader>
-                        <CardTitle>Key Features</CardTitle>
-                        <CardDescription>Feature importance for this tree.</CardDescription>
+                        <CardTitle>Bootstrap Sample</CardTitle>
+                        <CardDescription>The data subset this tree was trained on.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <FeatureImportanceChart data={MOCK_DATA_CHARTS.featureImportance.slice(0,2)} barSize={20} />
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Sample ID</TableHead>
+                                    <TableHead>F1</TableHead>
+                                    <TableHead>F2</TableHead>
+                                    <TableHead>Result</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {mockTreeData.map((row, i) => (
+                                <TableRow key={i}>
+                                    <TableCell>{row.sampleId}</TableCell>
+                                    <TableCell>{row.feature1}</TableCell>
+                                    <TableCell>{row.feature2}</TableCell>
+                                    <TableCell>{row.result}</TableCell>
+                                </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
                     </CardContent>
                 </Card>
             </div>
