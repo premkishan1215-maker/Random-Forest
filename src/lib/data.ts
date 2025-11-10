@@ -35,7 +35,7 @@ export const AUDIENCE_DATA: Record<Audience, AudienceData> = {
     dataUnderstandingImageId: 'data-understanding-doctor',
     datasetLabel: 'Patient Health Records',
     datasetSummaryIcon: Stethoscope,
-    target: { name: 'Condition', labels: ['Positive', 'Negative'] },
+    target: { name: 'Cancer', labels: ['Positive', 'Negative'] },
     features: [
       { name: 'Family History', values: ['Yes', 'No'] },
       { name: 'Smoker', values: ['Yes', 'No'] },
