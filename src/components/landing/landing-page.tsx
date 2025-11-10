@@ -55,43 +55,10 @@ export default function LandingPage({ onGetStarted, audience, onAudienceChange }
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-0" style={{ animation: 'fadeInUp 0.5s ease-out 0.5s forwards' }}>
               Ever wondered how many small decisions can lead to one great one? Let's explore the Random Forest algorithm in a simple, visual way.
             </p>
-
-            <div className="opacity-0" style={{ animation: 'fadeInUp 0.5s ease-out 0.7s forwards' }}>
-              <Card className="shadow-lg max-w-lg mx-auto">
-                <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                  <div className="w-full space-y-4">
-                    <div className="flex items-center gap-4 w-full">
-                      <span className="text-md font-medium text-muted-foreground whitespace-nowrap">Choose Your Audience:</span>
-                      <Select
-                        value={audience}
-                        onValueChange={(value: Audience) => onAudienceChange(value)}
-                      >
-                        <SelectTrigger className="w-full font-semibold">
-                          <SelectValue placeholder="Choose Audience" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {audienceOptions.map(option => (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center gap-2">
-                                <option.icon className="h-4 w-4" />
-                                <span>{option.label}</span>
-                              </div>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <Button size="lg" onClick={onGetStarted} className="w-full">
-                      Explore the Algorithm <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </CardContent>
         </Card>
 
-        <div className="mt-12 opacity-0 text-left" style={{ animation: 'fadeInUp 0.5s ease-out 0.9s forwards' }}>
+        <div className="mt-12 opacity-0 text-left" style={{ animation: 'fadeInUp 0.5s ease-out 0.7s forwards' }}>
           <Card className="shadow-lg">
             <CardContent className="p-8 space-y-8">
               <div>
@@ -164,6 +131,40 @@ export default function LandingPage({ onGetStarted, audience, onAudienceChange }
             </CardContent>
           </Card>
         </div>
+
+        <div className="mt-12 opacity-0" style={{ animation: 'fadeInUp 0.5s ease-out 0.9s forwards' }}>
+            <Card className="shadow-lg max-w-lg mx-auto">
+            <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+                <div className="w-full space-y-4">
+                <div className="flex items-center gap-4 w-full">
+                    <span className="text-md font-medium text-muted-foreground whitespace-nowrap">Choose Your Audience:</span>
+                    <Select
+                    value={audience}
+                    onValueChange={(value: Audience) => onAudienceChange(value)}
+                    >
+                    <SelectTrigger className="w-full font-semibold">
+                        <SelectValue placeholder="Choose Audience" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {audienceOptions.map(option => (
+                        <SelectItem key={option.value} value={option.value}>
+                            <div className="flex items-center gap-2">
+                            <option.icon className="h-4 w-4" />
+                            <span>{option.label}</span>
+                            </div>
+                        </SelectItem>
+                        ))}
+                    </SelectContent>
+                    </Select>
+                </div>
+                <Button size="lg" onClick={onGetStarted} className="w-full">
+                    Explore the Algorithm <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                </div>
+            </CardContent>
+            </Card>
+        </div>
+
       </div>
     </main>
   );
