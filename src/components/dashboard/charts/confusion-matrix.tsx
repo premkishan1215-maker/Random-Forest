@@ -4,7 +4,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import GraphExplanation from '../graph-explanation';
 import type { Audience } from '@/lib/types';
 import { AUDIENCE_DATA } from '@/lib/data';
 
@@ -24,12 +23,6 @@ export default function ConfusionMatrix({ audience }: ConfusionMatrixProps) {
                 <CardTitle>Confusion Matrix</CardTitle>
                 <CardDescription>How well the model's predictions match reality.</CardDescription>
             </div>
-            <GraphExplanation 
-                graphType="Confusion Matrix"
-                dataset={audienceData.datasetLabel}
-                algorithmConcept="Model Prediction Accuracy"
-                audience={audience}
-            />
         </div>
       </CardHeader>
       <CardContent>

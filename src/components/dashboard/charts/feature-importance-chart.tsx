@@ -3,7 +3,6 @@
 
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import GraphExplanation from '../graph-explanation';
 import type { Audience } from '@/lib/types';
 import { AUDIENCE_DATA } from '@/lib/data';
 
@@ -27,12 +26,6 @@ export default function FeatureImportanceChart({
             <CardTitle>Feature Importance</CardTitle>
             <CardDescription>Which features the model relies on most.</CardDescription>
           </div>
-          <GraphExplanation 
-            graphType="Bar Chart"
-            dataset={audienceData.datasetLabel}
-            algorithmConcept="Feature Importance"
-            audience={audience}
-          />
         </div>
       </CardHeader>
       <CardContent>

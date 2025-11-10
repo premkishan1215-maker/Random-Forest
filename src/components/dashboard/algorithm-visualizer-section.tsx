@@ -127,14 +127,14 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         }));
 
         const accData = Array.from({length: 10}).map((_, i) => {
-            const depth = i + 1;
-            // Simulate that accuracy increases with depth but then plateaus/overfits
-            const baseAccuracy = 0.65;
-            const improvement = (1 - Math.exp(-depth / 2.5)) * 0.3; // Approaches 0.3
-            const noise = (Math.random() - 0.5) * 0.03;
+            const n_estimators = i + 1;
+            // Simulate that accuracy increases with more trees but with diminishing returns
+            const baseAccuracy = 0.70;
+            const improvement = (1 - Math.exp(-n_estimators / 3)) * 0.25; // Approaches 0.25
+            const noise = (Math.random() - 0.5) * 0.02;
             const accuracy = Math.min(0.98, baseAccuracy + improvement + noise);
             return {
-                parameterValue: depth,
+                parameterValue: n_estimators,
                 accuracy: parseFloat(accuracy.toFixed(3))
             };
         });

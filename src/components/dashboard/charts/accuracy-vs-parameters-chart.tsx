@@ -3,7 +3,6 @@
 
 import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import GraphExplanation from '../graph-explanation';
 import type { Audience } from '@/lib/types';
 import { AUDIENCE_DATA } from '@/lib/data';
 
@@ -24,15 +23,9 @@ export default function AccuracyVsParametersChart({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Accuracy vs. Model Complexity</CardTitle>
-            <CardDescription>How accuracy changes as we tweak <code className="text-xs">max_depth</code>.</CardDescription>
+            <CardTitle>Accuracy vs. Number of Estimators</CardTitle>
+            <CardDescription>How accuracy changes as we add more trees (<code className="text-xs">n_estimators</code>).</CardDescription>
           </div>
-          <GraphExplanation 
-            graphType="Line Chart"
-            dataset={audienceData.datasetLabel}
-            algorithmConcept="Model Tuning and Overfitting"
-            audience={audience}
-          />
         </div>
       </CardHeader>
       <CardContent>
@@ -41,7 +34,7 @@ export default function AccuracyVsParametersChart({
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis 
               dataKey="parameterValue"
-              label={{ value: 'Max Depth', position: 'insideBottom', offset: -5 }} 
+              label={{ value: 'Number of Estimators', position: 'insideBottom', offset: -5 }} 
               />
             <YAxis 
                 label={{ value: 'Accuracy', angle: -90, position: 'insideLeft' }}
@@ -52,7 +45,7 @@ export default function AccuracyVsParametersChart({
                 if (active && payload && payload.length) {
                   return (
                     <div className="rounded-lg border bg-background p-2 shadow-sm">
-                      <p className="font-bold">{`Max Depth: ${label}`}</p>
+                      <p className="font-bold">{`# of Estimators: ${label}`}</p>
                       <p className="text-sm text-primary">{`Accuracy: ${(payload[0].value as number * 100).toFixed(1)}%`}</p>
                     </div>
                   )
