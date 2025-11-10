@@ -386,7 +386,17 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                         </TabsContent>
                     </div>
 
-                    <div className="flex justify-end mt-4">
+                    <div className="flex justify-between items-center mt-4">
+                        <div>
+                        {activeTab === 'stage5' && (
+                            <Button 
+                                variant="outline"
+                                onClick={() => window.open('https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html', '_blank')}
+                            >
+                                Know More
+                            </Button>
+                        )}
+                        </div>
                          <Button onClick={() => {
                             const currentIndex = stages.findIndex(s => s.id === activeTab);
                             if (currentIndex < stages.length - 1) {
@@ -409,5 +419,7 @@ const stages = [
     { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
   ];
   
+
+    
 
     
