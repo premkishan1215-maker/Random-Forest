@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { Leaf } from 'lucide-react';
+import { Leaf, Home } from 'lucide-react';
 import type { Audience } from '@/lib/types';
 import { AUDIENCE_DATA } from '@/lib/data';
 import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface DashboardHeaderProps {
   audience: Audience;
+  onGoHome: () => void;
 }
 
 export default function DashboardHeader({
-  audience
+  audience,
+  onGoHome,
 }: DashboardHeaderProps) {
     const Icon = AUDIENCE_DATA[audience].datasetSummaryIcon;
 
@@ -28,6 +32,18 @@ export default function DashboardHeader({
                 <Icon className="h-4 w-4 mr-2" />
                 {audience}
             </Badge>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={onGoHome}>
+                      <Home className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Back to Home</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
         </div>
       </div>
     </header>

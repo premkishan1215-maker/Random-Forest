@@ -71,6 +71,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <DashboardHeader
         audience={audience}
+        onGoHome={() => setShowDashboard(false)}
       />
       <main key={key} className="flex-grow p-4 md:p-8">
           <div className="grid grid-cols-1 gap-6">
