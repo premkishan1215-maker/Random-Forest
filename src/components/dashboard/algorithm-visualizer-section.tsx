@@ -54,7 +54,7 @@ type TreeNode = {
 const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDepth = 1): TreeNode => {
     const id = `${currentDepth}-${Math.random()}`;
     
-    if (currentDepth >= maxDepth || (currentDepth > 1 && Math.random() < 0.4)) {
+    if (currentDepth >= maxDepth) {
         return {
             id,
             type: 'leaf',
@@ -423,3 +423,4 @@ const stages = [
     
 
     
+

@@ -1731,7 +1731,7 @@ var _s = __turbopack_context__.k.signature();
 const generateRandomTree = (audienceData, maxDepth = 3, currentDepth = 1)=>{
     const id = `${currentDepth}-${Math.random()}`;
     // Ensure the tree doesn't stop at depth 1, force at least one split.
-    if (currentDepth >= maxDepth || currentDepth > 1 && Math.random() < 0.4) {
+    if (currentDepth >= maxDepth) {
         // Leaf node
         return {
             id,
@@ -2922,7 +2922,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 const generateRandomTree = (audienceData, maxDepth = 3, currentDepth = 1)=>{
     const id = `${currentDepth}-${Math.random()}`;
-    if (currentDepth >= maxDepth || currentDepth > 1 && Math.random() < 0.4) {
+    if (currentDepth >= maxDepth) {
         return {
             id,
             type: 'leaf',

@@ -35,7 +35,7 @@ const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDep
     const id = `${currentDepth}-${Math.random()}`;
     
     // Ensure the tree doesn't stop at depth 1, force at least one split.
-    if (currentDepth >= maxDepth || (currentDepth > 1 && Math.random() < 0.4)) {
+    if (currentDepth >= maxDepth) {
         // Leaf node
         return {
             id,

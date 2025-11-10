@@ -1598,7 +1598,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$b
 const generateRandomTree = (audienceData, maxDepth = 3, currentDepth = 1)=>{
     const id = `${currentDepth}-${Math.random()}`;
     // Ensure the tree doesn't stop at depth 1, force at least one split.
-    if (currentDepth >= maxDepth || currentDepth > 1 && Math.random() < 0.4) {
+    if (currentDepth >= maxDepth) {
         // Leaf node
         return {
             id,
@@ -2736,7 +2736,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$t
 ;
 const generateRandomTree = (audienceData, maxDepth = 3, currentDepth = 1)=>{
     const id = `${currentDepth}-${Math.random()}`;
-    if (currentDepth >= maxDepth || currentDepth > 1 && Math.random() < 0.4) {
+    if (currentDepth >= maxDepth) {
         return {
             id,
             type: 'leaf',
