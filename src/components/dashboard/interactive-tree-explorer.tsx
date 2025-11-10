@@ -63,21 +63,30 @@ const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDep
 
 const TreeDiagram = ({ treeData, audienceData }: { treeData: TreeNode; audienceData: AudienceData; }) => {
     const yStep = 90;
-    const xStep = 100;
+    const expansionFactor = 1.8;
 
-    const getDimensions = (node: TreeNode, depth = 0): { width: number; height: number } => {
+    const getDimensions = (node: TreeNode, depth = 0): { width: number; height: number, offsets: number[] } => {
         if (!node.children || node.children.length === 0) {
-            return { width: xStep, height: yStep };
+            return { width: 120, height: yStep, offsets: [60] };
         }
+        
         const childDimensions = node.children.map(child => getDimensions(child, depth + 1));
-        const width = childDimensions.reduce((sum, dim) => sum + dim.width, 0);
+        const width = childDimensions.reduce((sum, dim) => sum + dim.width, 0) + (childDimensions.length - 1) * 20; // Add spacing between children
         const height = yStep + Math.max(...childDimensions.map(dim => dim.height));
-        return { width, height };
+        
+        let currentX = 0;
+        const offsets = childDimensions.flatMap((dim, i) => {
+            const childOffsets = dim.offsets.map(offset => currentX + offset);
+            currentX += dim.width + 20;
+            return childOffsets;
+        });
+
+        return { width, height, offsets };
     };
 
     const { width, height } = getDimensions(treeData);
 
-    const renderNode = (node: TreeNode, x: number, y: number, parentX: number | null, parentY: number | null, xOffset: number): React.ReactNode[] => {
+    const renderNode = (node: TreeNode, x: number, y: number, parentX: number | null, parentY: number | null, levelWidth: number): React.ReactNode[] => {
         const elements: React.ReactNode[] = [];
 
         if (parentX !== null && parentY !== null) {
@@ -106,12 +115,13 @@ const TreeDiagram = ({ treeData, audienceData }: { treeData: TreeNode; audienceD
                 </g>
             );
 
-            const leftChildX = x - xOffset / 2;
-            const rightChildX = x + xOffset / 2;
-            
+            const childXOffset = levelWidth / expansionFactor / (node.children?.length || 1);
+
             if(node.children){
-                elements.push(...renderNode(node.children[0], leftChildX, y + yStep, x, y, xOffset / 2));
-                elements.push(...renderNode(node.children[1], rightChildX, y + yStep, x, y, xOffset / 2));
+                 const leftChildX = x - childXOffset;
+                 const rightChildX = x + childXOffset;
+                elements.push(...renderNode(node.children[0], leftChildX, y + yStep, x, y, childXOffset * 2));
+                elements.push(...renderNode(node.children[1], rightChildX, y + yStep, x, y, childXOffset * 2));
             }
         } else {
             const isPositive = node.value === audienceData.target.labels[0];
@@ -127,8 +137,8 @@ const TreeDiagram = ({ treeData, audienceData }: { treeData: TreeNode; audienceD
     };
 
     return (
-        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto min-h-[300px]">
-            {renderNode(treeData, width / 2, 30, null, null, width / 2)}
+        <svg viewBox={`0 -10 ${width} ${height + 20}`} className="w-full h-auto min-h-[300px]">
+            {renderNode(treeData, width / 2, 30, null, null, width)}
         </svg>
     );
 };
