@@ -1,8 +1,8 @@
 
 'use client';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Trees, ArrowRight, Tractor, Stethoscope, GraduationCap } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Trees, ArrowRight, Tractor, Stethoscope, GraduationCap, GitMerge, AlertTriangle, Lightbulb } from 'lucide-react';
 import * as React from 'react';
 import type { Audience } from '@/lib/types';
 import {
@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Separator } from '../ui/separator';
 
 const audienceOptions: { value: Audience; label: string; icon: React.ElementType }[] = [
   { value: 'Farmer', label: 'Farmer', icon: Tractor },
@@ -89,6 +90,80 @@ export default function LandingPage({ onGetStarted, audience, onAudienceChange }
             </div>
           </CardContent>
         </Card>
+
+        <div className="mt-12 opacity-0 text-left" style={{ animation: 'fadeInUp 0.5s ease-out 0.9s forwards' }}>
+          <Card className="shadow-lg">
+            <CardContent className="p-8 space-y-8">
+              <div>
+                <h2 className="font-headline text-2xl font-bold flex items-center gap-3">
+                  <Trees className="w-7 h-7 text-primary"/>
+                  Random Forest
+                </h2>
+                <p className="mt-2 text-muted-foreground">
+                  Random Forest is a method that uses many decision trees together to make better and more correct predictions.
+                  Each tree gives its own answer, and the final result is decided by majority vote — like taking the opinion of many people instead of just one.
+                </p>
+              </div>
+
+              <Separator />
+
+              <div>
+                <h2 className="font-headline text-2xl font-bold flex items-center gap-3">
+                  <GitMerge className="w-7 h-7 text-accent" />
+                  Decision Tree
+                </h2>
+                <p className="mt-2 text-muted-foreground">
+                  A Decision Tree is like a flowchart that helps make decisions step by step.
+                  Each question (node) divides the data into smaller parts until it reaches an answer at the end (leaf).
+                </p>
+                <Card className="mt-4 bg-muted/50">
+                  <CardContent className="p-4">
+                    <p className="font-semibold">Example:</p>
+                    <p className="font-code mt-2 text-sm">
+                      Is blood sugar &gt; 140?<br/>
+                      If <span className="text-green-600 font-bold">yes</span> → Diabetes<br/>
+                      If <span className="text-red-600 font-bold">no</span> → No Diabetes
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card className="bg-destructive/5 border-destructive/20">
+                  <CardHeader>
+                    <CardTitle className="text-xl flex items-center gap-3 text-destructive">
+                      <AlertTriangle className="w-6 h-6" />
+                      Limitations of a Decision Tree
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                      <li>Can make mistakes easily (overfitting)</li>
+                      <li>Changes if data changes a little (unstable)</li>
+                      <li>May not give correct results for all cases (less accurate)</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                <Card className="bg-primary/5 border-primary/20">
+                   <CardHeader>
+                    <CardTitle className="text-xl flex items-center gap-3 text-primary">
+                      <Lightbulb className="w-6 h-6" />
+                      Why We Need Random Forest
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                      <li>It gives more accurate results</li>
+                      <li>It is more stable and less affected by small changes</li>
+                      <li>It avoids mistakes made by a single tree</li>
+                      <li>It combines many trees to make a better final decision</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </main>
   );
