@@ -43,47 +43,120 @@ interface AlgorithmVisualizerSectionProps {
     generatedData: any[];
 }
 
-const AnimatedTree = ({ depth }: { depth: number }) => {
-    const totalWidth = 2000;
-    const yStep = 80;
-    const totalHeight = (depth * yStep) + 40;
+type TreeNode = {
+    id: string;
+    type: 'split' | 'leaf';
+    condition?: string;
+    value?: string;
+    children?: TreeNode[];
+};
 
-    const expansionFactor = 2.0; 
+const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDepth = 1): TreeNode => {
+    const id = `${currentDepth}-${Math.random()}`;
+    
+    if (currentDepth >= maxDepth || (currentDepth > 1 && Math.random() < 0.4)) {
+        return {
+            id,
+            type: 'leaf',
+            value: Math.random() > 0.5 ? audienceData.target.labels[0] : audienceData.target.labels[1],
+        };
+    }
 
-    const renderNode = (level: number, cx: number, cy: number, key: string) => {
-        if (level > depth) return null;
+    const featureIndex = Math.floor(Math.random() * audienceData.features.length);
+    const feature = audienceData.features[featureIndex];
+    const valueIndex = Math.floor(Math.random() * (feature.values?.length || 1));
+    const value = feature.values?.[valueIndex] || 'Value';
 
-        const children = [];
-        const nextCy = cy + yStep;
+    return {
+        id,
+        type: 'split',
+        condition: `${feature.name} = ${value}`,
+        children: [
+            generateRandomTree(audienceData, maxDepth, currentDepth + 1),
+            generateRandomTree(audienceData, maxDepth, currentDepth + 1),
+        ],
+    };
+};
+
+const AnimatedTree = ({ treeData, audienceData }: { treeData: TreeNode; audienceData: AudienceData; }) => {
+    const yStep = 90;
+    const expansionFactor = 1.8;
+
+    const getDimensions = (node: TreeNode, depth = 0): { width: number; height: number, offsets: number[] } => {
+        if (!node.children || node.children.length === 0) {
+            return { width: 120, height: yStep, offsets: [60] };
+        }
         
-        const xOffset = totalWidth / Math.pow(expansionFactor, level + 1);
+        const childDimensions = node.children.map(child => getDimensions(child, depth + 1));
+        const width = childDimensions.reduce((sum, dim) => sum + dim.width, 0) + (childDimensions.length - 1) * 20;
+        const height = yStep + Math.max(...childDimensions.map(dim => dim.height));
+        
+        let currentX = 0;
+        const offsets = childDimensions.flatMap((dim, i) => {
+            const childOffsets = dim.offsets.map(offset => currentX + offset);
+            currentX += dim.width + 20;
+            return childOffsets;
+        });
 
-        const leftCx = cx - xOffset;
-        const rightCx = cx + xOffset;
+        return { width, height, offsets };
+    };
 
-        if (level < depth) {
-            children.push(<line key={`${key}-l-line`} x1={cx} y1={cy} x2={leftCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
-            children.push(renderNode(level + 1, leftCx, nextCy, `${key}-l`));
-            children.push(<line key={`${key}-r-line`} x1={cx} y1={cy} x2={rightCx} y2={nextCy} className="stroke-muted-foreground tree-path" style={{ animationDelay: `${level * 0.2}s` }} />);
-            children.push(renderNode(level + 1, rightCx, nextCy, `${key}-r`));
+    const { width, height } = getDimensions(treeData);
+
+    const renderNode = (node: TreeNode, x: number, y: number, parentX: number | null, parentY: number | null, levelWidth: number, level: number): React.ReactNode[] => {
+        const elements: React.ReactNode[] = [];
+
+        if (parentX !== null && parentY !== null) {
+            elements.push(
+                <path
+                    key={`line-${node.id}`}
+                    d={`M ${parentX} ${parentY + 15} C ${parentX} ${parentY + yStep / 2}, ${x} ${y - yStep / 2}, ${x} ${y - 20}`}
+                    className="tree-path stroke-border"
+                    strokeWidth="2"
+                    fill="none"
+                    style={{ animationDelay: `${level * 0.2}s` }}
+                />
+            );
+            const isYes = (x < parentX);
+             elements.push(
+                <text key={`label-${node.id}`} x={(x + parentX)/2} y={(y+parentY)/2 - 5} fontSize="10" textAnchor="middle" className="tree-node fill-muted-foreground" style={{ animationDelay: `${level * 0.25}s` }}>
+                    {isYes ? 'Yes' : 'No'}
+                </text>
+            );
         }
 
-        const isLeaf = level === depth;
+        if (node.type === 'split') {
+            elements.push(
+                <g key={`g-${node.id}`} transform={`translate(${x}, ${y})`} className="tree-node" style={{ animationDelay: `${level * 0.25}s` }}>
+                    <rect x="-60" y="-15" width="120" height="30" rx="4" className="fill-card stroke-border" />
+                    <text textAnchor="middle" dy=".3em" fontSize="11" fontWeight="bold" className="fill-foreground">{node.condition}</text>
+                </g>
+            );
 
-        return (
-            <g key={key}>
-                {children}
-                <circle cx={cx} cy={cy} r={isLeaf ? 8 : 10} className={`tree-node ${isLeaf ? 'fill-primary' : 'fill-accent'}`} style={{ animationDelay: `${level * 0.25}s` }} />
-                <text x={cx} y={cy - 15} textAnchor="middle" className="text-xs fill-foreground tree-node" style={{ animationDelay: `${level * 0.25}s` }}>
-                    {isLeaf ? 'Leaf' : `Split`}
-                </text>
-            </g>
-        );
+            const childXOffset = levelWidth / expansionFactor / (node.children?.length || 1);
+
+            if(node.children){
+                 const leftChildX = x - childXOffset;
+                 const rightChildX = x + childXOffset;
+                elements.push(...renderNode(node.children[0], leftChildX, y + yStep, x, y, childXOffset * 2, level + 1));
+                elements.push(...renderNode(node.children[1], rightChildX, y + yStep, x, y, childXOffset * 2, level + 1));
+            }
+        } else {
+            const isPositive = node.value === audienceData.target.labels[0];
+            elements.push(
+                <g key={`g-${node.id}`} transform={`translate(${x}, ${y})`} className="tree-node" style={{ animationDelay: `${level * 0.25}s` }}>
+                    <circle r="20" className={isPositive ? 'fill-primary' : 'fill-destructive'} />
+                    <text textAnchor="middle" dy=".3em" fontSize="10" className="font-bold fill-primary-foreground">{node.value}</text>
+                </g>
+            );
+        }
+
+        return elements;
     };
 
     return (
-        <svg viewBox={`0 0 ${totalWidth} ${totalHeight}`} className="w-full h-auto min-h-[500px]">
-            {renderNode(1, totalWidth / 2, 20, 'root')}
+        <svg viewBox={`0 0 ${width} ${height + 20}`} className="w-full h-auto min-h-[500px]">
+            {renderNode(treeData, width / 2, 30, null, null, width, 0)}
         </svg>
     );
 };
@@ -100,15 +173,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
     }, [audienceData.target.labels, parameters.n_estimators]);
 
 
-    const stages = [
-      { id: 'stage1', name: 'Data Understanding', icon: Box },
-      { id: 'stage2', name: 'Building Trees', icon: Spline },
-      { id: 'stage3', name: 'Forest Formation', icon: GitMerge },
-      { id: 'stage4', name: 'Voting', icon: Vote },
-      { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
-    ];
-    
-     const { votingData, featureImportanceData, accuracyData } = React.useMemo(() => {
+    const { votingData, featureImportanceData, accuracyData, animatedTreeData } = React.useMemo(() => {
         const votes: Record<string, number> = forestPredictions.reduce((acc, pred) => {
             if (!acc[pred]) {
                 acc[pred] = 0;
@@ -128,9 +193,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
 
         const accData = Array.from({length: 10}).map((_, i) => {
             const n_estimators = i + 1;
-            // Simulate that accuracy increases with more trees but with diminishing returns
             const baseAccuracy = 0.70;
-            const improvement = (1 - Math.exp(-n_estimators / 3)) * 0.25; // Approaches 0.25
+            const improvement = (1 - Math.exp(-n_estimators / 3)) * 0.25;
             const noise = (Math.random() - 0.5) * 0.02;
             const accuracy = Math.min(0.98, baseAccuracy + improvement + noise);
             return {
@@ -139,13 +203,16 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             };
         });
 
+        const treeForAnimation = generateRandomTree(audienceData, parameters.max_depth);
+
         return { 
             votingData: { chartData: votingChartData, finalPrediction },
             featureImportanceData: featImportance,
-            accuracyData: accData
+            accuracyData: accData,
+            animatedTreeData: treeForAnimation
         };
 
-    }, [audienceData.features, forestPredictions]);
+    }, [audienceData, forestPredictions, parameters.max_depth]);
 
     return (
         <Card className="shadow-lg">
@@ -249,7 +316,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 </div>
                                 <div className="lg:col-span-2">
                                     <div className="p-6 text-center border rounded-md min-h-[550px] flex items-center justify-center overflow-x-auto bg-card/50">
-                                        <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
+                                        <AnimatedTree key={parameters.max_depth} treeData={animatedTreeData} audienceData={audienceData} />
                                     </div>
                                     <p className="text-center text-sm mt-4 text-muted-foreground">
                                         A single tree grows by splitting data on different rules. The <code className="text-xs">max_depth</code> controls how many questions it can ask before making a decision.
@@ -334,3 +401,13 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         </Card>
     );
 }
+const stages = [
+    { id: 'stage1', name: 'Data Understanding', icon: Box },
+    { id: 'stage2', name: 'Building Trees', icon: Spline },
+    { id: 'stage3', name: 'Forest Formation', icon: GitMerge },
+    { id: 'stage4', name: 'Voting', icon: Vote },
+    { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
+  ];
+  
+
+    
