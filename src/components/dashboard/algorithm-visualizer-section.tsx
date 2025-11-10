@@ -6,8 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Audience, AudienceData } from '@/lib/types';
 import FeatureImportanceChart from './charts/feature-importance-chart';
 import ConfusionMatrix from './charts/confusion-matrix';
@@ -15,6 +13,7 @@ import { ArrowRight, Box, GitMerge, Spline, Vote, CheckCircle, ListTree, Target,
 import InteractiveTreeExplorer from './interactive-tree-explorer';
 import ParameterPlaygroundSection from './parameter-playground-section';
 import SampleBarChart from './charts/sample-bar-chart';
+import AccuracyVsParametersChart from './charts/accuracy-vs-parameters-chart';
 import {
   Table,
   TableBody,
@@ -91,7 +90,6 @@ const AnimatedTree = ({ depth }: { depth: number }) => {
 
 
 export default function AlgorithmVisualizerSection({ audience, audienceData, parameters, setParameters, onGenerateData, generatedData }: AlgorithmVisualizerSectionProps) {
-    const dataUnderstandingImage = PlaceHolderImages.find(img => img.id === audienceData.dataUnderstandingImageId);
     const [activeTab, setActiveTab] = React.useState("stage1");
     const [forestPredictions, setForestPredictions] = React.useState<string[]>([]);
     
@@ -110,7 +108,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
       { id: 'stage5', name: 'Evaluation', icon: CheckCircle },
     ];
     
-     const { votingData, featureImportanceData } = React.useMemo(() => {
+     const { votingData, featureImportanceData, accuracyData } = React.useMemo(() => {
         const votes: Record<string, number> = forestPredictions.reduce((acc, pred) => {
             if (!acc[pred]) {
                 acc[pred] = 0;
@@ -128,9 +126,23 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             importance: Math.random()
         }));
 
+        const accData = Array.from({length: 10}).map((_, i) => {
+            const depth = i + 1;
+            // Simulate that accuracy increases with depth but then plateaus/overfits
+            const baseAccuracy = 0.65;
+            const improvement = (1 - Math.exp(-depth / 2.5)) * 0.3; // Approaches 0.3
+            const noise = (Math.random() - 0.5) * 0.03;
+            const accuracy = Math.min(0.98, baseAccuracy + improvement + noise);
+            return {
+                parameterValue: depth,
+                accuracy: parseFloat(accuracy.toFixed(3))
+            };
+        });
+
         return { 
             votingData: { chartData: votingChartData, finalPrediction },
             featureImportanceData: featImportance,
+            accuracyData: accData
         };
 
     }, [audienceData.features, forestPredictions]);
@@ -226,8 +238,8 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardTitle>Stage 2: Building a Decision Tree</CardTitle>
                                 <CardDescription>{audienceData.metaphors.tree}</CardDescription>
                             </CardHeader>
-                            <div className="flex flex-col gap-8">
-                                <div>
+                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <div className="lg:col-span-1">
                                     <ParameterPlaygroundSection
                                         relevantParams={['max_depth']}
                                         audienceData={audienceData}
@@ -235,12 +247,12 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                         setParameters={setParameters}
                                     />
                                 </div>
-                                <div className="w-full">
-                                    <div className="p-6 text-center border rounded-md min-h-[550px] flex items-center justify-center overflow-x-auto">
+                                <div className="lg:col-span-2">
+                                    <div className="p-6 text-center border rounded-md min-h-[550px] flex items-center justify-center overflow-x-auto bg-card/50">
                                         <AnimatedTree key={parameters.max_depth} depth={parameters.max_depth} />
                                     </div>
                                     <p className="text-center text-sm mt-4 text-muted-foreground">
-                                        A tree grows by splitting data based on feature rules. This is one of many trees in the forest.
+                                        A single tree grows by splitting data on different rules. The <code className="text-xs">max_depth</code> controls how many questions it can ask before making a decision.
                                     </p>
                                 </div>
                             </div>
@@ -297,9 +309,12 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
                                 <CardTitle>Stage 5: Model Evaluation</CardTitle>
                                 <CardDescription>{audienceData.metaphors.evaluation}</CardDescription>
                             </CardHeader>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
                                 <ConfusionMatrix audience={audience}/>
                                 <FeatureImportanceChart data={featureImportanceData} audience={audience} />
+                                <div className="lg:col-span-2">
+                                     <AccuracyVsParametersChart data={accuracyData} audience={audience} />
+                                </div>
                             </div>
                         </TabsContent>
                     </div>
@@ -318,9 +333,4 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
             </CardContent>
         </Card>
     );
-
-    
-
-    
-
-    
+}
