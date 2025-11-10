@@ -30,14 +30,14 @@ export default function AccuracyVsParametersChart({
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={250}>
-          <LineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+          <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis 
               dataKey="parameterValue"
-              label={{ value: 'Number of Estimators', position: 'insideBottom', offset: -5 }} 
+              label={{ value: 'Number of Estimators', position: 'insideBottom', offset: -10 }} 
               />
             <YAxis 
-                label={{ value: 'Accuracy', angle: -90, position: 'insideLeft' }}
+                label={{ value: 'Accuracy', angle: -90, position: 'insideLeft', offset: 10 }}
                 domain={[0.6, 1]}
             />
             <Tooltip

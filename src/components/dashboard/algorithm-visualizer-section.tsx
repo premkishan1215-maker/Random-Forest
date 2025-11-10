@@ -170,7 +170,7 @@ export default function AlgorithmVisualizerSection({ audience, audienceData, par
         const [label1, label2] = audienceData.target.labels;
         const newPredictions = Array.from({ length: parameters.n_estimators }).map(() => (Math.random() > 0.5 ? label1 : label2));
         setForestPredictions(newPredictions);
-    }, [audienceData.target.labels, parameters.n_estimators]);
+    }, [audience, parameters.n_estimators, audienceData.target.labels]);
 
 
     const { votingData, featureImportanceData, accuracyData, animatedTreeData } = React.useMemo(() => {
