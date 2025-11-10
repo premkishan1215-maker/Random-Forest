@@ -18,19 +18,13 @@ export default function Home() {
 
   React.useEffect(() => {
     setIsClient(true);
-    // Generate initial data when component mounts for the first time
-    handleGenerateData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const audienceData = AUDIENCE_DATA[audience];
 
   const handleAudienceChange = (newAudience: Audience) => {
     setAudience(newAudience);
-    setGeneratedData([]); // Reset data when audience changes
     setKey(prevKey => prevKey + 1);
-    // Regenerate data for the new audience
-    handleGenerateData(AUDIENCE_DATA[newAudience]);
   };
   
   const handleGenerateData = (currentAudienceData = audienceData) => {
@@ -44,6 +38,11 @@ export default function Home() {
     }));
     setGeneratedData(data);
   };
+
+  const handleGetStarted = () => {
+    handleGenerateData(AUDIENCE_DATA[audience]);
+    setShowDashboard(true);
+  }
 
 
   const [parameters, setParameters] = React.useState({
@@ -62,7 +61,7 @@ export default function Home() {
       <LandingPage
         audience={audience}
         onAudienceChange={handleAudienceChange}
-        onGetStarted={() => setShowDashboard(true)}
+        onGetStarted={handleGetStarted}
       />
     );
   }
