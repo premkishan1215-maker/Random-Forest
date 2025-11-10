@@ -31,10 +31,9 @@ type TreeNode = {
     children?: TreeNode[];
 };
 
-const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDepth = 1): TreeNode => {
+const generateRandomTree = (audienceData: AudienceData, maxDepth: number, currentDepth = 1): TreeNode => {
     const id = `${currentDepth}-${Math.random()}`;
     
-    // Ensure the tree doesn't stop at depth 1, force at least one split.
     if (currentDepth >= maxDepth) {
         // Leaf node
         return {
@@ -179,10 +178,6 @@ export default function InteractiveTreeExplorer({ treeId, audienceData, initialP
       generateDataForTree();
     }
   };
-
-  React.useEffect(() => {
-     generateDataForTree();
-  }, [generateDataForTree]);
   
   return (
     <Dialog onOpenChange={handleOpenChange}>

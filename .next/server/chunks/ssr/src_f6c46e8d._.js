@@ -1595,9 +1595,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$b
 ;
 ;
 ;
-const generateRandomTree = (audienceData, maxDepth = 3, currentDepth = 1)=>{
+const generateRandomTree = (audienceData, maxDepth, currentDepth = 1)=>{
     const id = `${currentDepth}-${Math.random()}`;
-    // Ensure the tree doesn't stop at depth 1, force at least one split.
     if (currentDepth >= maxDepth) {
         // Leaf node
         return {
@@ -1660,7 +1659,7 @@ const TreeDiagram = ({ treeData, audienceData })=>{
                 fill: "none"
             }, `line-${node.id}`, false, {
                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                lineNumber: 94,
+                lineNumber: 93,
                 columnNumber: 17
             }, this));
             const isYes = x < parentX;
@@ -1673,7 +1672,7 @@ const TreeDiagram = ({ treeData, audienceData })=>{
                 children: isYes ? 'Yes' : 'No'
             }, `label-${node.id}`, false, {
                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                lineNumber: 104,
+                lineNumber: 103,
                 columnNumber: 17
             }, this));
         }
@@ -1691,7 +1690,7 @@ const TreeDiagram = ({ treeData, audienceData })=>{
                         stroke: "hsl(var(--border))"
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                        lineNumber: 113,
+                        lineNumber: 112,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1702,13 +1701,13 @@ const TreeDiagram = ({ treeData, audienceData })=>{
                         children: node.condition
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                        lineNumber: 114,
+                        lineNumber: 113,
                         columnNumber: 21
                     }, this)
                 ]
             }, `g-${node.id}`, true, {
                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                lineNumber: 112,
+                lineNumber: 111,
                 columnNumber: 17
             }, this));
             const childXOffset = levelWidth / expansionFactor / (node.children?.length || 1);
@@ -1728,7 +1727,7 @@ const TreeDiagram = ({ treeData, audienceData })=>{
                         fill: isPositive ? 'hsl(var(--primary))' : 'hsl(var(--destructive))'
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                        lineNumber: 130,
+                        lineNumber: 129,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1740,13 +1739,13 @@ const TreeDiagram = ({ treeData, audienceData })=>{
                         children: node.value
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                        lineNumber: 131,
+                        lineNumber: 130,
                         columnNumber: 21
                     }, this)
                 ]
             }, `g-${node.id}`, true, {
                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                lineNumber: 129,
+                lineNumber: 128,
                 columnNumber: 17
             }, this));
         }
@@ -1758,7 +1757,7 @@ const TreeDiagram = ({ treeData, audienceData })=>{
         children: renderNode(treeData, width / 2, 30, null, null, width)
     }, void 0, false, {
         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-        lineNumber: 140,
+        lineNumber: 139,
         columnNumber: 9
     }, this);
 };
@@ -1798,11 +1797,6 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
             generateDataForTree();
         }
     };
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        generateDataForTree();
-    }, [
-        generateDataForTree
-    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dialog"], {
         onOpenChange: handleOpenChange,
         children: [
@@ -1819,7 +1813,7 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                     className: "w-8 h-8 text-primary/70"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                    lineNumber: 192,
+                                    lineNumber: 187,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1830,13 +1824,13 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                    lineNumber: 193,
+                                    lineNumber: 188,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                            lineNumber: 191,
+                            lineNumber: 186,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1845,18 +1839,18 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                             children: initialPrediction || '...'
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                            lineNumber: 195,
+                            lineNumber: 190,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                    lineNumber: 190,
+                    lineNumber: 185,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                lineNumber: 189,
+                lineNumber: 184,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogContent"], {
@@ -1872,20 +1866,20 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                lineNumber: 202,
+                                lineNumber: 197,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                 children: "Exploring the decisions made by a single tree in the forest. This tree was trained on a random subset of the data."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                lineNumber: 203,
+                                lineNumber: 198,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                        lineNumber: 201,
+                        lineNumber: 196,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1902,20 +1896,20 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                                     children: "Decision Structure"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                    lineNumber: 211,
+                                                    lineNumber: 206,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardDescription"], {
                                                     children: "A visual map of this tree's logic."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                    lineNumber: 212,
+                                                    lineNumber: 207,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                            lineNumber: 210,
+                                            lineNumber: 205,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1925,23 +1919,23 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                                 audienceData: audienceData
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                lineNumber: 215,
+                                                lineNumber: 210,
                                                 columnNumber: 41
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                            lineNumber: 214,
+                                            lineNumber: 209,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 204,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                lineNumber: 208,
+                                lineNumber: 203,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1955,20 +1949,20 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                                     children: "Bootstrap Sample"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                    lineNumber: 222,
+                                                    lineNumber: 217,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardDescription"], {
                                                     children: "The data subset this tree was trained on."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                    lineNumber: 223,
+                                                    lineNumber: 218,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                            lineNumber: 221,
+                                            lineNumber: 216,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1983,32 +1977,32 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                                                         children: "Sample ID"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                        lineNumber: 230,
+                                                                        lineNumber: 225,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     audienceData.features.map((f)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableHead"], {
                                                                             children: f.name
                                                                         }, f.name, false, {
                                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                            lineNumber: 231,
+                                                                            lineNumber: 226,
                                                                             columnNumber: 73
                                                                         }, this)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableHead"], {
                                                                         children: audienceData.target.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                        lineNumber: 232,
+                                                                        lineNumber: 227,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                lineNumber: 229,
+                                                                lineNumber: 224,
                                                                 columnNumber: 37
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                            lineNumber: 228,
+                                                            lineNumber: 223,
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableBody"], {
@@ -2018,91 +2012,91 @@ function InteractiveTreeExplorer({ treeId, audienceData, initialPrediction, maxD
                                                                             children: row.id
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                            lineNumber: 238,
+                                                                            lineNumber: 233,
                                                                             columnNumber: 41
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableCell"], {
                                                                             children: row.feature1
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                            lineNumber: 239,
+                                                                            lineNumber: 234,
                                                                             columnNumber: 41
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableCell"], {
                                                                             children: row.feature2
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                            lineNumber: 240,
+                                                                            lineNumber: 235,
                                                                             columnNumber: 41
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableCell"], {
                                                                             children: row.feature3
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                            lineNumber: 241,
+                                                                            lineNumber: 236,
                                                                             columnNumber: 41
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableCell"], {
                                                                             children: row.target
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                            lineNumber: 242,
+                                                                            lineNumber: 237,
                                                                             columnNumber: 41
                                                                         }, this)
                                                                     ]
                                                                 }, i, true, {
                                                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                                    lineNumber: 237,
+                                                                    lineNumber: 232,
                                                                     columnNumber: 37
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                            lineNumber: 235,
+                                                            lineNumber: 230,
                                                             columnNumber: 33
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                    lineNumber: 227,
+                                                    lineNumber: 222,
                                                     columnNumber: 29
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                                lineNumber: 226,
+                                                lineNumber: 221,
                                                 columnNumber: 26
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                            lineNumber: 225,
+                                            lineNumber: 220,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                    lineNumber: 220,
+                                    lineNumber: 215,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                                lineNumber: 219,
+                                lineNumber: 214,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                        lineNumber: 207,
+                        lineNumber: 202,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-                lineNumber: 200,
+                lineNumber: 195,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/dashboard/interactive-tree-explorer.tsx",
-        lineNumber: 188,
+        lineNumber: 183,
         columnNumber: 5
     }, this);
 }
@@ -2734,7 +2728,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$t
 ;
 ;
 ;
-const generateRandomTree = (audienceData, maxDepth = 3, currentDepth = 1)=>{
+const generateRandomTree = (audienceData, maxDepth, currentDepth = 1)=>{
     const id = `${currentDepth}-${Math.random()}`;
     if (currentDepth >= maxDepth) {
         return {

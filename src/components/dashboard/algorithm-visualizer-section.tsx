@@ -51,7 +51,7 @@ type TreeNode = {
     children?: TreeNode[];
 };
 
-const generateRandomTree = (audienceData: AudienceData, maxDepth = 3, currentDepth = 1): TreeNode => {
+const generateRandomTree = (audienceData: AudienceData, maxDepth: number, currentDepth = 1): TreeNode => {
     const id = `${currentDepth}-${Math.random()}`;
     
     if (currentDepth >= maxDepth) {
@@ -423,4 +423,5 @@ const stages = [
     
 
     
+
 
