@@ -4381,14 +4381,14 @@ const audienceOptions = [
 ];
 function LandingPage({ onGetStarted, audience, onAudienceChange }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "jsx-80b7db41fdf29c9d" + " " + "flex flex-col items-center justify-center min-h-screen bg-background p-4 sm:p-6 md:p-8 text-center overflow-hidden",
+        className: "jsx-ad29d79574292cb5" + " " + "flex flex-col items-center justify-center min-h-screen bg-background p-4 sm:p-6 md:p-8 text-center overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                id: "80b7db41fdf29c9d",
+                id: "ad29d79574292cb5",
                 children: "@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}"
             }, void 0, false, void 0, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-80b7db41fdf29c9d" + " " + "max-w-4xl w-full",
+                className: "jsx-ad29d79574292cb5" + " " + "max-w-4xl w-full",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                         className: "border-none shadow-none bg-transparent",
@@ -4399,7 +4399,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                     style: {
                                         animation: 'fadeInUp 0.5s ease-out 0.1s forwards'
                                     },
-                                    className: "jsx-80b7db41fdf29c9d" + " " + "flex justify-center mb-6 opacity-0",
+                                    className: "jsx-ad29d79574292cb5" + " " + "flex justify-center mb-6 opacity-0",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trees$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trees$3e$__["Trees"], {
                                         className: "w-20 h-20 text-primary"
                                     }, void 0, false, {
@@ -4416,7 +4416,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                     style: {
                                         animation: 'fadeInUp 0.5s ease-out 0.3s forwards'
                                     },
-                                    className: "jsx-80b7db41fdf29c9d" + " " + "text-4xl md:text-5xl font-headline font-bold mb-4 opacity-0",
+                                    className: "jsx-ad29d79574292cb5" + " " + "text-4xl md:text-5xl font-headline font-bold mb-4 opacity-0",
                                     children: "Welcome to Forest Insights"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4427,7 +4427,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                     style: {
                                         animation: 'fadeInUp 0.5s ease-out 0.5s forwards'
                                     },
-                                    className: "jsx-80b7db41fdf29c9d" + " " + "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-0",
+                                    className: "jsx-ad29d79574292cb5" + " " + "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-0",
                                     children: "Ever wondered how many small decisions can lead to one great one? Let's explore the Random Forest algorithm in a simple, visual way."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4449,17 +4449,17 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                         style: {
                             animation: 'fadeInUp 0.5s ease-out 0.7s forwards'
                         },
-                        className: "jsx-80b7db41fdf29c9d" + " " + "mt-12 opacity-0 text-left",
+                        className: "jsx-ad29d79574292cb5" + " " + "mt-12 opacity-0 text-left",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                             className: "shadow-lg",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
                                 className: "p-8 space-y-8",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-80b7db41fdf29c9d",
+                                        className: "jsx-ad29d79574292cb5",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: "jsx-80b7db41fdf29c9d" + " " + "font-headline text-2xl font-bold flex items-center gap-3",
+                                                className: "jsx-ad29d79574292cb5" + " " + "font-headline text-2xl font-bold flex items-center gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trees$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trees$3e$__["Trees"], {
                                                         className: "w-7 h-7 text-primary"
@@ -4476,7 +4476,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "jsx-80b7db41fdf29c9d" + " " + "mt-2 text-muted-foreground",
+                                                className: "jsx-ad29d79574292cb5" + " " + "mt-2 text-muted-foreground",
                                                 children: "Random Forest is a method that uses many decision trees together to make better and more correct predictions. Each tree gives its own answer, and the final result is decided by majority vote — like taking the opinion of many people instead of just one."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4495,10 +4495,10 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-80b7db41fdf29c9d",
+                                        className: "jsx-ad29d79574292cb5",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: "jsx-80b7db41fdf29c9d" + " " + "font-headline text-2xl font-bold flex items-center gap-3",
+                                                className: "jsx-ad29d79574292cb5" + " " + "font-headline text-2xl font-bold flex items-center gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$merge$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GitMerge$3e$__["GitMerge"], {
                                                         className: "w-7 h-7 text-accent"
@@ -4515,7 +4515,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "jsx-80b7db41fdf29c9d" + " " + "mt-2 text-muted-foreground",
+                                                className: "jsx-ad29d79574292cb5" + " " + "mt-2 text-muted-foreground",
                                                 children: "A Decision Tree is like a flowchart that helps make decisions step by step. Each question (node) divides the data into smaller parts until it reaches an answer at the end (leaf)."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4528,7 +4528,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                     className: "p-4",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "jsx-80b7db41fdf29c9d" + " " + "font-semibold",
+                                                            className: "jsx-ad29d79574292cb5" + " " + "font-semibold",
                                                             children: "Example:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4536,11 +4536,11 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "jsx-80b7db41fdf29c9d" + " " + "font-code mt-2 text-sm",
+                                                            className: "jsx-ad29d79574292cb5" + " " + "font-code mt-2 text-sm",
                                                             children: [
                                                                 "Is blood sugar > 140?",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {
-                                                                    className: "jsx-80b7db41fdf29c9d"
+                                                                    className: "jsx-ad29d79574292cb5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
                                                                     lineNumber: 90,
@@ -4548,7 +4548,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                 }, this),
                                                                 "If ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "jsx-80b7db41fdf29c9d" + " " + "text-green-600 font-bold",
+                                                                    className: "jsx-ad29d79574292cb5" + " " + "text-green-600 font-bold",
                                                                     children: "yes"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4557,7 +4557,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                 }, this),
                                                                 " → Diabetes",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {
-                                                                    className: "jsx-80b7db41fdf29c9d"
+                                                                    className: "jsx-ad29d79574292cb5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
                                                                     lineNumber: 91,
@@ -4565,7 +4565,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                 }, this),
                                                                 "If ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "jsx-80b7db41fdf29c9d" + " " + "text-red-600 font-bold",
+                                                                    className: "jsx-ad29d79574292cb5" + " " + "text-red-600 font-bold",
                                                                     children: "no"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4597,7 +4597,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-80b7db41fdf29c9d" + " " + "grid grid-cols-1 md:grid-cols-2 gap-6",
+                                        className: "jsx-ad29d79574292cb5" + " " + "grid grid-cols-1 md:grid-cols-2 gap-6",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                                                 className: "bg-destructive/5 border-destructive/20",
@@ -4627,10 +4627,10 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                                            className: "jsx-80b7db41fdf29c9d" + " " + "list-disc list-inside space-y-2 text-muted-foreground",
+                                                            className: "jsx-ad29d79574292cb5" + " " + "list-disc list-inside space-y-2 text-muted-foreground",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "Can make mistakes easily (overfitting)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4638,7 +4638,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "Changes if data changes a little (unstable)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4646,7 +4646,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "May not give correct results for all cases (less accurate)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4698,10 +4698,10 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                                            className: "jsx-80b7db41fdf29c9d" + " " + "list-disc list-inside space-y-2 text-muted-foreground",
+                                                            className: "jsx-ad29d79574292cb5" + " " + "list-disc list-inside space-y-2 text-muted-foreground",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "It gives more accurate results"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4709,7 +4709,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "It is more stable and less affected by small changes"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4717,7 +4717,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "It avoids mistakes made by a single tree"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4725,7 +4725,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                    className: "jsx-80b7db41fdf29c9d",
+                                                                    className: "jsx-ad29d79574292cb5",
                                                                     children: "It combines many trees to make a better final decision"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4775,19 +4775,19 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                         style: {
                             animation: 'fadeInUp 0.5s ease-out 0.9s forwards'
                         },
-                        className: "jsx-80b7db41fdf29c9d" + " " + "mt-12 opacity-0",
+                        className: "jsx-ad29d79574292cb5" + " " + "mt-12 opacity-0",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                             className: "shadow-lg max-w-lg mx-auto",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
                                 className: "p-6 flex flex-col items-center justify-center text-center",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-80b7db41fdf29c9d" + " " + "w-full space-y-4",
+                                    className: "jsx-ad29d79574292cb5" + " " + "w-full space-y-4",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "jsx-80b7db41fdf29c9d" + " " + "flex items-center gap-4 w-full",
+                                            className: "jsx-ad29d79574292cb5" + " " + "flex items-center gap-4 w-full",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "jsx-80b7db41fdf29c9d" + " " + "text-md font-medium text-muted-foreground whitespace-nowrap",
+                                                    className: "jsx-ad29d79574292cb5" + " " + "text-md font-medium text-muted-foreground whitespace-nowrap",
                                                     children: "Choose Your Audience:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -4816,7 +4816,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                             children: audienceOptions.map((option)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
                                                                     value: option.value,
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "jsx-80b7db41fdf29c9d" + " " + "flex items-center gap-2",
+                                                                        className: "jsx-ad29d79574292cb5" + " " + "flex items-center gap-2",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(option.icon, {
                                                                                 className: "h-4 w-4"
@@ -4826,7 +4826,7 @@ function LandingPage({ onGetStarted, audience, onAudienceChange }) {
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "jsx-80b7db41fdf29c9d",
+                                                                                className: "jsx-ad29d79574292cb5",
                                                                                 children: option.label
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/landing/landing-page.tsx",
@@ -5066,7 +5066,7 @@ function Home() {
         columnNumber: 5
     }, this);
 }
-_s(Home, "qCkS/2C1edRPjA0G9DqDwG8XNyQ=");
+_s(Home, "78zCi7fbkhQ4hPR3kEHgh5clVRA=");
 _c = Home;
 var _c;
 __turbopack_context__.k.register(_c, "Home");
