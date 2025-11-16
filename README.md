@@ -14,8 +14,15 @@ This makes Random Forests understandable for **students, beginners, and anyone c
 
 ---
 
-## 🌟 Live Demo  
-👉 https://github.com/premkishan1215-maker/Random-Forest
+🎯 **GitHub:**  
+👉 [https://github.com/premkishan1215-maker/Random-Forest](https://github.com/premkishan1215-maker/Random-Forest)
+
+---
+
+## 🖼️ Project Preview
+
+🧩 Beginner View
+<div align="center" style="display: flex; justify-content: center; gap: 10px;"> <img src="public/page-01.png" alt="Beginner Interface 1" width="400"/> <img src="public/page-02.png" alt="Beginner Interface 2" width="400"/> <img src="public/page-03.png" alt="Beginner Interface 1" width="400"/> <img src="public/page-04-I.png" alt="Beginner Interface 1" width="400"/> <img src="public/page-04-II.png" alt="Beginner Interface 1" width="400"/> <img src="public/page-05.png" alt="Beginner Interface 1" width="400"/> <img src="public/page-06-I.png" alt="Beginner Interface 1" width="400"/> <img src="public/page-06-II.png" alt="Beginner Interface 1" width="400"/></div>
 
 ---
 
@@ -109,7 +116,7 @@ Each shows its output visually:
 - 🟢 **High**  
 - 🔴 **Low**
 
-if you click on the tree it will show the diagram of the tree and data reegarding the tree.
+if you click on the tree it will show the diagram of that tree and data regarding the tree.
 
 ### 🕹️ Parameter Playground  
 Users control:
