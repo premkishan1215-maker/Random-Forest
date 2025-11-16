@@ -28,7 +28,7 @@ This makes Random Forests understandable for **students, beginners, and anyone c
 
 ## 👥 Team Members
 
-| Name | Roll no | Contribution |
+| Name | Role | Contribution |
 |------|------|--------------|
 |Aayush Trilok Jha | Developer | Implemented UI, Tree Visualization, Parameter Controls |
 | Prem Kishan| Developer | Built Forest Formation & Voting Section |
